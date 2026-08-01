@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Desenvolvedor Front-End & Construtor de MVPs Rápidos | Portfólio</title>
+<meta name="description" content="Desenvolvedor front-end especializado em MVPs rápidos e de alta performance, usando tecnologia moderna e desenvolvimento assistido por IA." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          base: { bg: '#FAFAFC', surface: '#FFFFFF', surface2: '#F3F1FC', border: '#E7E6F0' },
+          ink: { DEFAULT: '#131320', dim: '#57576E', faint: '#8A8AA0' },
+          violet: { DEFAULT: '#E8C468', soft: '#F3DDA0', deep: '#A67C1E' },
+          coral: { DEFAULT: '#E8896F', soft: '#FF8266' },
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+        boxShadow: {
+          glow: '0 0 0 1px rgba(232,196,104,0.15), 0 12px 32px -8px rgba(232,196,104,0.35)',
+          'glow-coral': '0 0 0 1px rgba(232,137,111,0.2), 0 12px 32px -8px rgba(232,137,111,0.35)',
+          card: '0 1px 2px rgba(20,20,40,0.04), 0 1px 1px rgba(20,20,40,0.03)',
+          lift: '0 24px 48px -16px rgba(232,196,104,0.28)',
+        },
+      },
+    },
+  }
+</script>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #FAFAFC;
+    background-image:
+      radial-gradient(ellipse 70% 45% at 15% -5%, rgba(232,196,104,0.10), transparent),
+      radial-gradient(ellipse 55% 40% at 100% 10%, rgba(232,137,111,0.08), transparent);
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(20,20,40,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(20,20,40,0.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 0%, black 35%, transparent 90%);
+    mask-image: radial-gradient(ellipse 75% 65% at 50% 0%, black 35%, transparent 90%);
+  }
+  .bg-dots {
+    background-image: radial-gradient(rgba(232,196,104,0.18) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+  }
+  .glow-orb { filter: blur(90px); }
+  .glow-orb-sm { filter: blur(50px); }
+
+  @keyframes drift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(24px,-18px) scale(1.06); } }
+  .drift { animation: drift 12s ease-in-out infinite; }
+  .drift-slow { animation: drift 18s ease-in-out infinite; animation-delay: -4s; }
+
+  .card-glow { position: relative; }
+  .card-glow::before {
+    content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+    background: linear-gradient(135deg, rgba(232,196,104,0), rgba(232,196,104,0));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    transition: background 0.4s ease; pointer-events: none;
+  }
+  .card-glow:hover::before { background: linear-gradient(135deg, rgba(232,196,104,0.95), rgba(232,137,111,0.7)); }
+  .card-glow:hover { transform: translateY(-6px); box-shadow: 0 0 0 1px rgba(232,196,104,0.1), 0 24px 48px -16px rgba(232,196,104,0.28); }
+
+  .caret { display: inline-block; width: 0.5ch; background: #E8896F; margin-left: 4px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .fade-up { opacity: 0; transform: translateY(16px); animation: fadeUp 0.7s ease forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(.21,.9,.32,1), transform 0.7s cubic-bezier(.21,.9,.32,1); }
+  .reveal.revealed { opacity: 1; transform: translateY(0); }
+
+  @keyframes floaty { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-12px) rotate(var(--rot,0deg)); } }
+  .float-badge { animation: floaty 5.5s ease-in-out infinite; }
+
+  .marquee-wrap { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); }
+  .marquee-track { display: flex; width: max-content; gap: 2.5rem; animation: marquee 24s linear infinite; }
+  .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+
+  a:focus-visible, button:focus-visible { outline: 2px solid #E8C468; outline-offset: 3px; border-radius: 4px; }
+  ::selection { background: rgba(232,196,104,0.18); color: #131320; }
+
+  .lang-btn { transition: all 0.2s ease; }
+  .lang-btn[data-active="true"] { background: #E8C468; color: #3D2E0A; }
+  .lang-btn[data-active="false"] { color: #57576E; }
+  .lang-btn[data-active="false"]:hover { background: #F3F1FC; color: #131320; }
+
+  #site-nav { transition: box-shadow 0.3s ease, background-color 0.3s ease; }
+  #site-nav.scrolled { box-shadow: 0 1px 0 rgba(20,20,40,0.06), 0 8px 24px -12px rgba(20,20,40,0.12); }
+
+  .browser-chrome {
+    background-image: radial-gradient(ellipse 120% 100% at 0% 0%, var(--c1,rgba(232,196,104,0.18)), transparent 60%),
+                       radial-gradient(ellipse 120% 100% at 100% 100%, var(--c2,rgba(232,137,111,0.14)), transparent 60%);
+  }
+
+  .timeline-line { background: linear-gradient(90deg, transparent, #E7E6F0 10%, #E7E6F0 90%, transparent); }
+
+  .pulse-dot { position: relative; }
+  .pulse-dot::after {
+    content: ""; position: absolute; inset: 0; border-radius: 9999px; background: inherit;
+    animation: pulseRing 2s cubic-bezier(0,0,.2,1) infinite;
+  }
+  @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2.4); opacity: 0; } }
+
+</style>
+</head>
+
+<body class="bg-base-bg text-ink font-body antialiased overflow-x-hidden">
+
+<!-- ============ NAV ============ -->
+<header id="site-nav" class="fixed top-0 inset-x-0 z-50 border-b border-base-border bg-base-bg/80 backdrop-blur-lg">
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
+    <a href="#top" class="font-display font-semibold text-lg tracking-tight text-ink flex items-center gap-2 shrink-0">
+      <span class="relative flex w-2 h-2">
+        <span class="pulse-dot w-2 h-2 rounded-full bg-coral"></span>
+      </span>
+      rlgomes<span class="text-ink-faint">.dev</span>
+    </a>
+    <div class="hidden lg:flex items-center gap-8 text-sm text-ink-dim font-medium">
+      <a href="#about" class="hover:text-violet transition-colors" data-i18n="nav.about">Sobre</a>
+      <a href="#process" class="hover:text-violet transition-colors" data-i18n="nav.process">Como Trabalho</a>
+      <a href="#projects" class="hover:text-violet transition-colors" data-i18n="nav.projects">Projetos</a>
+      <a href="#skills" class="hover:text-violet transition-colors" data-i18n="nav.skills">Stack</a>
+      <a href="#contact" class="hover:text-violet transition-colors" data-i18n="nav.contact">Contato</a>
+    </div>
+    <div class="flex items-center gap-3 shrink-0">
+      <div role="group" aria-label="Language selector" class="flex items-center gap-0.5 bg-base-surface2 rounded-full p-0.5 font-mono text-xs font-medium">
+        <button type="button" onclick="setLang('pt')" data-lang-btn="pt" class="lang-btn px-2.5 py-1.5 rounded-full">PT</button>
+        <button type="button" onclick="setLang('en')" data-lang-btn="en" class="lang-btn px-2.5 py-1.5 rounded-full">EN</button>
+        <button type="button" onclick="setLang('es')" data-lang-btn="es" class="lang-btn px-2.5 py-1.5 rounded-full">ES</button>
+      </div>
+      <a href="#contact" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium bg-ink text-white px-4 py-2 rounded-full hover:bg-violet transition-colors" data-i18n="nav.hire">Contrate-me</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="relative overflow-hidden pt-40 pb-32 px-6">
+  <div class="absolute inset-0 bg-grid -z-20"></div>
+  <div class="absolute inset-0 bg-dots opacity-40 -z-20"></div>
+  <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[640px] h-[640px] rounded-full bg-violet/20 glow-orb drift -z-10"></div>
+  <div class="absolute top-10 right-0 w-[320px] h-[320px] rounded-full bg-coral/20 glow-orb drift-slow -z-10"></div>
+
+  <!-- Floating tech badges (desktop only) -->
+  <div class="hidden lg:block absolute top-40 left-[6%] float-badge" style="--rot:-6deg; animation-delay:0s;">
+    <span class="inline-flex items-center gap-1.5 bg-white border border-base-border shadow-card rounded-full px-3 py-1.5 font-mono text-xs text-ink-dim">
+      <i data-lucide="atom" class="w-3.5 h-3.5 text-violet"></i> React
+    </span>
+  </div>
+  <div class="hidden lg:block absolute top-28 right-[10%] float-badge" style="--rot:5deg; animation-delay:1.2s;">
+    <span class="inline-flex items-center gap-1.5 bg-white border border-base-border shadow-card rounded-full px-3 py-1.5 font-mono text-xs text-ink-dim">
+      <i data-lucide="wind" class="w-3.5 h-3.5 text-coral"></i> Tailwind
+    </span>
+  </div>
+  <div class="hidden lg:block absolute bottom-24 left-[10%] float-badge" style="--rot:4deg; animation-delay:2.1s;">
+    <span class="inline-flex items-center gap-1.5 bg-white border border-base-border shadow-card rounded-full px-3 py-1.5 font-mono text-xs text-ink-dim">
+      <i data-lucide="sparkles" class="w-3.5 h-3.5 text-violet"></i> AI-Powered
+    </span>
+  </div>
+  <div class="hidden lg:block absolute bottom-32 right-[7%] float-badge" style="--rot:-4deg; animation-delay:0.6s;">
+    <span class="inline-flex items-center gap-1.5 bg-white border border-base-border shadow-card rounded-full px-3 py-1.5 font-mono text-xs text-ink-dim">
+      <i data-lucide="rocket" class="w-3.5 h-3.5 text-coral"></i> Fast Deploy
+    </span>
+  </div>
+
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="fade-up flex items-center justify-center gap-3 flex-wrap mb-8">
+      <span class="inline-flex items-center gap-2 font-mono text-xs text-violet-deep bg-violet/8 border border-violet/20 rounded-full px-4 py-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-coral animate-pulse"></span>
+        <span data-i18n="hero.badge">DESENVOLVIMENTO FRONT-END COM IA</span>
+      </span>
+      <span class="inline-flex items-center gap-2 font-mono text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-4 py-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+        <span data-i18n="hero.available">Disponível para novos projetos</span>
+      </span>
+    </div>
+
+    <h1 class="fade-up [animation-delay:0.1s] font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.1] text-ink">
+      <span data-i18n="hero.title1">Olá, sou Desenvolvedor Front-End</span>
+      <span class="block bg-gradient-to-r from-violet via-violet-soft to-coral bg-clip-text text-transparent" data-i18n="hero.title2">& Construtor de MVPs Rápidos.</span>
+    </h1>
+
+    <p class="fade-up [animation-delay:0.2s] mt-6 text-lg text-ink-dim max-w-2xl mx-auto leading-relaxed" data-i18n="hero.subtitle">
+      Transformo ideias em aplicações web e landing pages de alta performance e visual impecável, em tempo recorde, usando tecnologia moderna e IA.
+    </p>
+
+    <div class="fade-up [animation-delay:0.25s] mt-6 inline-flex items-center gap-2 font-mono text-sm bg-[#14141F] text-white/90 rounded-lg px-4 py-2.5 shadow-lift">
+      <i data-lucide="terminal" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+      <span data-i18n="hero.rotatorPrefix">construindo agora:</span>
+      <span id="roleRotator" class="text-[#FF8266] font-medium">Desenvolvedor Front-End</span><span class="caret"></span>
+    </div>
+
+    <div class="fade-up [animation-delay:0.3s] mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="#projects" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-violet hover:bg-violet-deep text-[#3D2E0A] font-medium px-7 py-3.5 rounded-xl shadow-glow transition-all hover:-translate-y-0.5">
+        <span data-i18n="hero.cta1">Ver Projetos</span>
+        <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+      </a>
+      <a href="https://wa.me/5511983179592" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-base-border bg-white hover:border-coral/60 hover:text-coral text-ink font-medium px-7 py-3.5 rounded-xl shadow-card transition-all">
+        <span data-i18n="hero.cta2">Contrate-me</span>
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUSTED / MARQUEE ============ -->
+<section class="relative border-y border-base-border bg-white py-6 overflow-hidden">
+  <div class="marquee-wrap">
+    <div class="marquee-track font-mono text-sm text-ink-faint">
+      <span class="flex items-center gap-2 px-2"><i data-lucide="file-code-2" class="w-4 h-4 text-coral"></i>HTML5</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="palette" class="w-4 h-4 text-violet"></i>CSS3</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="braces" class="w-4 h-4 text-coral"></i>JavaScript</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="code-2" class="w-4 h-4 text-violet"></i>TypeScript</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="atom" class="w-4 h-4 text-coral"></i>React</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="server" class="w-4 h-4 text-violet"></i>Node.js</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="cpu" class="w-4 h-4 text-coral"></i>Python</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="database" class="w-4 h-4 text-violet"></i>SQL</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="wind" class="w-4 h-4 text-coral"></i>Tailwind CSS</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="git-branch" class="w-4 h-4 text-violet"></i>Git</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="github" class="w-4 h-4 text-coral"></i>GitHub</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="sparkles" class="w-4 h-4 text-violet"></i>AI-Assisted Dev</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="rocket" class="w-4 h-4 text-coral"></i>Vercel</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="smartphone" class="w-4 h-4 text-violet"></i>Responsive</span>
+      <!-- duplicate for seamless loop -->
+      <span class="flex items-center gap-2 px-2"><i data-lucide="file-code-2" class="w-4 h-4 text-coral"></i>HTML5</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="palette" class="w-4 h-4 text-violet"></i>CSS3</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="braces" class="w-4 h-4 text-coral"></i>JavaScript</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="code-2" class="w-4 h-4 text-violet"></i>TypeScript</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="atom" class="w-4 h-4 text-coral"></i>React</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="server" class="w-4 h-4 text-violet"></i>Node.js</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="cpu" class="w-4 h-4 text-coral"></i>Python</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="database" class="w-4 h-4 text-violet"></i>SQL</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="wind" class="w-4 h-4 text-coral"></i>Tailwind CSS</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="git-branch" class="w-4 h-4 text-violet"></i>Git</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="github" class="w-4 h-4 text-coral"></i>GitHub</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="sparkles" class="w-4 h-4 text-violet"></i>AI-Assisted Dev</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="rocket" class="w-4 h-4 text-coral"></i>Vercel</span>
+      <span class="flex items-center gap-2 px-2"><i data-lucide="smartphone" class="w-4 h-4 text-violet"></i>Responsive</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT / SUPERPOWER ============ -->
+<section id="about" class="relative px-6 py-24 border-b border-base-border">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
+    <div class="reveal">
+      <span class="font-mono text-xs text-violet tracking-widest uppercase" data-i18n="about.eyebrow">/ sobre</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold mt-3 mb-6 tracking-tight" data-i18n="about.title">Meu superpoder é velocidade sem abrir mão da qualidade.</h2>
+      <p class="text-ink-dim leading-relaxed mb-4" data-i18n="about.p1">
+        Sou formado em Análise e Desenvolvimento de Sistemas (ADS), mas meu diferencial real não é o diploma — é a velocidade com que transformo uma ideia em um produto pronto para o mercado.
+      </p>
+      <p class="text-ink-dim leading-relaxed mb-4" data-i18n="about.p2">
+        Domino fluxos de desenvolvimento assistido por Inteligência Artificial para planejar, construir e entregar MVPs e sites robustos em uma fração do tempo tradicional, sem abrir mão de código limpo e qualidade visual — e sem barreiras de linguagem, adaptando a tecnologia ao que cada projeto exige.
+      </p>
+      <p class="text-ink-dim leading-relaxed" data-i18n="about.p3">
+        O resultado: startups e empresas recebem um produto pronto para o mercado mais rápido, com a precisão estética de um design feito à mão.
+      </p>
+
+      <div class="grid grid-cols-3 gap-4 mt-10">
+        <div class="bg-white border border-base-border rounded-xl p-4 shadow-card">
+          <p class="font-display text-2xl font-semibold text-coral"><span data-count="10">0</span>x</p>
+          <p class="text-xs text-ink-faint mt-1" data-i18n="about.stat1label">entrega mais rápida</p>
+        </div>
+        <div class="bg-white border border-base-border rounded-xl p-4 shadow-card">
+          <p class="font-display text-2xl font-semibold text-violet"><span data-count="10">0</span>+</p>
+          <p class="text-xs text-ink-faint mt-1" data-i18n="about.stat2label">projetos entregues</p>
+        </div>
+        <div class="bg-white border border-base-border rounded-xl p-4 shadow-card">
+          <p class="font-display text-2xl font-semibold text-ink"><span data-count="100">0</span>%</p>
+          <p class="text-xs text-ink-faint mt-1" data-i18n="about.stat3label">builds responsivos</p>
+        </div>
+      </div>
+
+      <div class="mt-6 bg-white border border-base-border rounded-xl p-5 shadow-card flex items-start gap-4">
+        <div class="w-11 h-11 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+          <i data-lucide="graduation-cap" class="w-5 h-5 text-emerald-600"></i>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <p class="font-display text-sm font-semibold text-ink" data-i18n="about.degree.title">Tecnólogo em Análise e Desenvolvimento de Sistemas</p>
+            <span class="inline-flex items-center gap-1 font-mono text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-full px-2 py-0.5">
+              <i data-lucide="badge-check" class="w-3 h-3"></i>
+              <span data-i18n="about.degree.verified">Verificado</span>
+            </span>
+          </div>
+          <p class="text-sm text-ink-dim mt-1">Universidade Cidade de São Paulo (UNICID)</p>
+          <p class="text-xs text-ink-faint mt-1"><span data-i18n="about.degree.dateLabel">Colação de Grau</span>: 04/12/2024</p>
+          <a href="https://cse.webapp.abaris.com.br/diploma/417.417.3b242c4239f6" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-violet hover:text-coral transition-colors mt-2">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            <span data-i18n="about.degree.verifyLink">Verificar autenticidade do diploma</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative reveal">
+      <div class="absolute -inset-6 bg-violet/10 rounded-3xl glow-orb-sm -z-10"></div>
+      <div class="rounded-2xl border border-base-border bg-[#14141F] shadow-2xl overflow-hidden">
+        <div class="flex items-center gap-1.5 px-4 py-3 border-b border-white/10 bg-[#1B1B29]">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#FF5F57]"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]"></span>
+          <span class="w-2.5 h-2.5 rounded-full bg-[#28C840]"></span>
+          <span class="ml-3 font-mono text-xs text-white/40">build.tsx — AI Pair Programming</span>
+          <span class="ml-auto font-mono text-[10px] text-emerald-400 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>connected</span>
+        </div>
+        <pre class="font-mono text-[13px] leading-relaxed p-5 overflow-x-auto text-white/80"><code><span class="text-white/40">// prompt</span>
+<span class="text-[#FF8266]">"Build</span> <span class="text-[#B5A6FF]">a pricing section</span><span class="text-[#FF8266]">, clean, responsive"</span>
+
+<span class="text-white/40">// AI Assistant → generating component...</span>
+<span class="text-[#B5A6FF]">export</span> <span class="text-white">function</span> <span class="text-[#FF8266]">PricingSection</span>() {
+  <span class="text-white/40">// clean, semantic, production-ready</span>
+  <span class="text-[#B5A6FF]">return</span> (
+    <span class="text-white/70">&lt;<span class="text-[#FF8266]">section</span> <span class="text-[#B5A6FF]">className</span>=<span class="text-[#FF8266]">"bg-white"</span>&gt;</span>
+      ...
+    <span class="text-white/70">&lt;/<span class="text-[#FF8266]">section</span>&gt;</span>
+  )
+}
+
+<span class="text-white/40">// deployed to Vercel</span> <span class="text-[#4ADE80]">✓</span> <span class="text-white/40">0.9s build</span></code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS / HOW I WORK ============ -->
+<section id="process" class="relative px-6 py-24 border-b border-base-border bg-base-surface2/40">
+  <div class="max-w-6xl mx-auto">
+    <div class="max-w-2xl mb-16 reveal">
+      <span class="font-mono text-xs text-violet tracking-widest uppercase" data-i18n="process.eyebrow">/ como trabalho</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold mt-3 tracking-tight" data-i18n="process.title">Do briefing ao deploy, sem enrolação.</h2>
+      <p class="text-ink-dim mt-4" data-i18n="process.subtitle">Um fluxo enxuto, potencializado por IA, para sair da ideia ao produto no ar em dias, não meses.</p>
+    </div>
+
+    <div class="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="hidden lg:block absolute top-8 left-0 right-0 h-px timeline-line"></div>
+
+      <div class="reveal relative bg-white border border-base-border rounded-2xl p-6 shadow-card">
+        <div class="w-9 h-9 rounded-full bg-violet text-[#3D2E0A] flex items-center justify-center font-mono text-sm font-semibold mb-5">01</div>
+        <i data-lucide="search" class="w-5 h-5 text-violet mb-3"></i>
+        <h3 class="font-display font-semibold text-ink mb-2" data-i18n="process.step1.title">Descoberta</h3>
+        <p class="text-sm text-ink-dim leading-relaxed" data-i18n="process.step1.desc">Entendo objetivos, público e escopo para focar no que realmente importa.</p>
+      </div>
+
+      <div class="reveal relative bg-white border border-base-border rounded-2xl p-6 shadow-card">
+        <div class="w-9 h-9 rounded-full bg-coral text-white flex items-center justify-center font-mono text-sm font-semibold mb-5">02</div>
+        <i data-lucide="pen-tool" class="w-5 h-5 text-coral mb-3"></i>
+        <h3 class="font-display font-semibold text-ink mb-2" data-i18n="process.step2.title">Design</h3>
+        <p class="text-sm text-ink-dim leading-relaxed" data-i18n="process.step2.desc">Conceitos visuais rápidos e distintos, alinhados à sua marca e ao seu público.</p>
+      </div>
+
+      <div class="reveal relative bg-white border border-base-border rounded-2xl p-6 shadow-card">
+        <div class="w-9 h-9 rounded-full bg-violet text-[#3D2E0A] flex items-center justify-center font-mono text-sm font-semibold mb-5">03</div>
+        <i data-lucide="sparkles" class="w-5 h-5 text-violet mb-3"></i>
+        <h3 class="font-display font-semibold text-ink mb-2" data-i18n="process.step3.title">Construção com IA</h3>
+        <p class="text-sm text-ink-dim leading-relaxed" data-i18n="process.step3.desc">Desenvolvo com ferramentas de IA generativa para ganhar velocidade sem perder qualidade, adaptando a linguagem ao que o projeto exigir.</p>
+      </div>
+
+      <div class="reveal relative bg-white border border-base-border rounded-2xl p-6 shadow-card">
+        <div class="w-9 h-9 rounded-full bg-coral text-white flex items-center justify-center font-mono text-sm font-semibold mb-5">04</div>
+        <i data-lucide="rocket" class="w-5 h-5 text-coral mb-3"></i>
+        <h3 class="font-display font-semibold text-ink mb-2" data-i18n="process.step4.title">Deploy & Iteração</h3>
+        <p class="text-sm text-ink-dim leading-relaxed" data-i18n="process.step4.desc">Publico em Vercel/Netlify, colho feedback real e itero rápido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects" class="relative px-6 py-24 border-b border-base-border">
+  <div class="max-w-6xl mx-auto">
+    <div class="max-w-2xl mb-14 reveal">
+      <span class="font-mono text-xs text-violet tracking-widest uppercase" data-i18n="projects.eyebrow">/ projetos</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold mt-3 tracking-tight" data-i18n="projects.title">Trabalhos selecionados.</h2>
+      <p class="text-ink-dim mt-4" data-i18n="projects.subtitle">Alguns produtos reais que projetei e entreguei do início ao fim — da ideia ao deploy em produção.</p>
+
+      <div class="inline-flex items-center gap-3 mt-8 bg-gradient-to-r from-violet/10 via-violet/5 to-coral/10 border border-violet/20 rounded-2xl px-5 py-3">
+        <div class="flex -space-x-2">
+          <span class="w-8 h-8 rounded-full bg-violet flex items-center justify-center text-[#3D2E0A] shadow-glow"><i data-lucide="check" class="w-4 h-4"></i></span>
+          <span class="w-8 h-8 rounded-full bg-coral flex items-center justify-center text-white"><i data-lucide="zap" class="w-4 h-4"></i></span>
+          <span class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white"><i data-lucide="rocket" class="w-4 h-4"></i></span>
+        </div>
+        <p class="text-sm text-ink">
+          <span class="font-display font-bold text-lg text-ink"><span data-count="10">0</span>+</span>
+          <span class="text-ink-dim" data-i18n="projects.banner">projetos reais, no ar, prontos pra você conferir agora</span>
+        </p>
+      </div>
+    </div>
+
+    <div id="projects-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Card 1 -->
+      <article class="reveal card-glow relative rounded-2xl border border-base-border bg-white overflow-hidden flex flex-col shadow-card transition-all duration-300">
+        <div class="absolute top-3 right-3 z-20 inline-flex items-center gap-1 bg-gradient-to-r from-violet to-coral text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg">
+          <i data-lucide="star" class="w-3 h-3"></i><span data-i18n="projects.topPick">Popular</span>
+        </div>
+        <div class="browser-chrome px-4 py-3 border-b border-base-border" style="--c1:rgba(232,196,104,0.16); --c2:rgba(232,137,111,0.10);">
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF5F57]"></span><span class="w-2 h-2 rounded-full bg-[#FEBC2E]"></span><span class="w-2 h-2 rounded-full bg-[#28C840]"></span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/70 border border-base-border rounded-md px-2 py-1 font-mono text-[10px] text-ink-faint truncate">
+            <i data-lucide="lock" class="w-3 h-3"></i> dapaz-confeitaria-xi.vercel.app
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center mb-4">
+            <i data-lucide="shopping-bag" class="w-5 h-5 text-violet"></i>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-ink mb-2">D'Paz Confeitaria</h3>
+          <div class="flex items-center gap-1.5 text-xs font-medium text-violet-deep bg-violet/10 rounded-lg px-2.5 py-1 w-fit mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+            <span data-i18n="project.dpaz.highlight">Checkout pensado para conversão mobile</span>
+          </div>
+          <p class="text-sm text-ink-dim leading-relaxed mb-5 flex-1" data-i18n="project.dpaz">
+            Um e-commerce elegante e clean para uma marca de confeitaria, criado para destacar produtos e converter pedidos com uma experiência de compra fluida, pensada primeiro para o mobile.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">HTML</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">CSS</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">JavaScript</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">Vercel</span>
+          </div>
+          <a href="https://dapaz-confeitaria-xi.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-violet hover:text-coral transition-colors">
+            <span data-i18n="projects.live">Ver Demo</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="reveal card-glow rounded-2xl border border-base-border bg-white overflow-hidden flex flex-col shadow-card transition-all duration-300">
+        <div class="browser-chrome px-4 py-3 border-b border-base-border" style="--c1:rgba(232,137,111,0.16); --c2:rgba(232,196,104,0.10);">
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF5F57]"></span><span class="w-2 h-2 rounded-full bg-[#FEBC2E]"></span><span class="w-2 h-2 rounded-full bg-[#28C840]"></span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/70 border border-base-border rounded-md px-2 py-1 font-mono text-[10px] text-ink-faint truncate">
+            <i data-lucide="lock" class="w-3 h-3"></i> rlgomes92.github.io/fincontrol
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-coral/10 flex items-center justify-center mb-4">
+            <i data-lucide="line-chart" class="w-5 h-5 text-coral"></i>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-ink mb-2">FinControl</h3>
+          <div class="flex items-center gap-1.5 text-xs font-medium text-[#C96A50] bg-coral/10 rounded-lg px-2.5 py-1 w-fit mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+            <span data-i18n="project.fincontrol.highlight">Visualização de dados clara para decisões rápidas</span>
+          </div>
+          <p class="text-sm text-ink-dim leading-relaxed mb-5 flex-1" data-i18n="project.fincontrol">
+            Um dashboard financeiro pessoal para controle de receitas, despesas e saldo, com uma interface focada em dados e fácil de entender.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">HTML</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">JavaScript</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">Tailwind</span>
+          </div>
+          <a href="https://rlgomes92.github.io/fincontrol/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-violet hover:text-coral transition-colors">
+            <span data-i18n="projects.live">Ver Demo</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="reveal card-glow rounded-2xl border border-base-border bg-white overflow-hidden flex flex-col shadow-card transition-all duration-300">
+        <div class="browser-chrome px-4 py-3 border-b border-base-border" style="--c1:rgba(232,196,104,0.16); --c2:rgba(232,137,111,0.10);">
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF5F57]"></span><span class="w-2 h-2 rounded-full bg-[#FEBC2E]"></span><span class="w-2 h-2 rounded-full bg-[#28C840]"></span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/70 border border-base-border rounded-md px-2 py-1 font-mono text-[10px] text-ink-faint truncate">
+            <i data-lucide="lock" class="w-3 h-3"></i> voef5.com.br
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center mb-4">
+            <i data-lucide="building-2" class="w-5 h-5 text-violet"></i>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-ink mb-2">Voef5</h3>
+          <div class="flex items-center gap-1.5 text-xs font-medium text-violet-deep bg-violet/10 rounded-lg px-2.5 py-1 w-fit mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+            <span data-i18n="project.voef5.highlight">Carregamento otimizado em segundos</span>
+          </div>
+          <p class="text-sm text-ink-dim leading-relaxed mb-5 flex-1" data-i18n="project.voef5">
+            Uma landing page institucional moderna, focada em presença de marca, carregamento rápido e um layout claro voltado para conversão.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">HTML</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">CSS</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">Tailwind</span>
+          </div>
+          <a href="https://voef5.com.br/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-violet hover:text-coral transition-colors">
+            <span data-i18n="projects.live">Ver Demo</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="reveal card-glow rounded-2xl border border-base-border bg-white overflow-hidden flex flex-col shadow-card transition-all duration-300">
+        <div class="browser-chrome px-4 py-3 border-b border-base-border" style="--c1:rgba(232,137,111,0.16); --c2:rgba(232,196,104,0.10);">
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF5F57]"></span><span class="w-2 h-2 rounded-full bg-[#FEBC2E]"></span><span class="w-2 h-2 rounded-full bg-[#28C840]"></span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/70 border border-base-border rounded-md px-2 py-1 font-mono text-[10px] text-ink-faint truncate">
+            <i data-lucide="lock" class="w-3 h-3"></i> rlgomes92.github.io/interclass
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-coral/10 flex items-center justify-center mb-4">
+            <i data-lucide="trophy" class="w-5 h-5 text-coral"></i>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-ink mb-2">Interclass</h3>
+          <div class="flex items-center gap-1.5 text-xs font-medium text-[#C96A50] bg-coral/10 rounded-lg px-2.5 py-1 w-fit mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+            <span data-i18n="project.interclass.highlight">Cronogramas dinâmicos e alto engajamento</span>
+          </div>
+          <p class="text-sm text-ink-dim leading-relaxed mb-5 flex-1" data-i18n="project.interclass">
+            Uma plataforma de eventos e esportes criada para organizar competições, exibir cronogramas e engajar participantes com um layout dinâmico.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">HTML</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">CSS</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">JavaScript</span>
+          </div>
+          <a href="https://rlgomes92.github.io/interclass/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-violet hover:text-coral transition-colors">
+            <span data-i18n="projects.live">Ver Demo</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="reveal card-glow rounded-2xl border border-base-border bg-white overflow-hidden flex flex-col shadow-card transition-all duration-300 sm:col-span-2 lg:col-span-1">
+        <div class="browser-chrome px-4 py-3 border-b border-base-border" style="--c1:rgba(232,196,104,0.16); --c2:rgba(232,137,111,0.10);">
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF5F57]"></span><span class="w-2 h-2 rounded-full bg-[#FEBC2E]"></span><span class="w-2 h-2 rounded-full bg-[#28C840]"></span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/70 border border-base-border rounded-md px-2 py-1 font-mono text-[10px] text-ink-faint truncate">
+            <i data-lucide="lock" class="w-3 h-3"></i> pais-de-prematuro.vercel.app
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center mb-4">
+            <i data-lucide="heart-handshake" class="w-5 h-5 text-violet"></i>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-ink mb-2">Pais de Prematuro</h3>
+          <div class="flex items-center gap-1.5 text-xs font-medium text-violet-deep bg-violet/10 rounded-lg px-2.5 py-1 w-fit mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+            <span data-i18n="project.paisdeprematuro.highlight">UI acolhedora para um momento sensível</span>
+          </div>
+          <p class="text-sm text-ink-dim leading-relaxed mb-5 flex-1" data-i18n="project.paisdeprematuro">
+            Um site social com uma interface limpa e acolhedora, criado para informar e conectar pais de bebês prematuros a recursos e comunidade.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">HTML</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">Tailwind</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">Vercel</span>
+          </div>
+          <a href="https://pais-de-prematuro.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-violet hover:text-coral transition-colors">
+            <span data-i18n="projects.live">Ver Demo</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="reveal card-glow relative rounded-2xl border border-base-border bg-white overflow-hidden flex flex-col shadow-card transition-all duration-300">
+        <div class="absolute top-3 right-3 z-20 inline-flex items-center gap-1 bg-gradient-to-r from-violet to-coral text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg">
+          <i data-lucide="star" class="w-3 h-3"></i><span data-i18n="projects.topPick">Popular</span>
+        </div>
+        <div class="browser-chrome px-4 py-3 border-b border-base-border" style="--c1:rgba(232,196,104,0.16); --c2:rgba(232,137,111,0.10);">
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF5F57]"></span><span class="w-2 h-2 rounded-full bg-[#FEBC2E]"></span><span class="w-2 h-2 rounded-full bg-[#28C840]"></span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/70 border border-base-border rounded-md px-2 py-1 font-mono text-[10px] text-ink-faint truncate">
+            <i data-lucide="lock" class="w-3 h-3"></i> rlgomes92.github.io/tech
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center mb-4">
+            <i data-lucide="smartphone" class="w-5 h-5 text-violet"></i>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-ink mb-2">Tech MM</h3>
+          <div class="flex items-center gap-1.5 text-xs font-medium text-violet-deep bg-violet/10 rounded-lg px-2.5 py-1 w-fit mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+            <span data-i18n="project.techmm.highlight">Loja + assistência técnica com chatbot</span>
+          </div>
+          <p class="text-sm text-ink-dim leading-relaxed mb-5 flex-1" data-i18n="project.techmm">
+            Site completo para assistência técnica de celulares e loja de acessórios, com catálogo filtrável, formulário de orçamento e assistente virtual integrado.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">HTML</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">JavaScript</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">WhatsApp API</span>
+          </div>
+          <a href="https://rlgomes92.github.io/tech/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-violet hover:text-coral transition-colors">
+            <span data-i18n="projects.live">Ver Demo</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="reveal card-glow relative rounded-2xl border border-base-border bg-white overflow-hidden flex flex-col shadow-card transition-all duration-300">
+        <div class="absolute top-3 right-3 z-20 inline-flex items-center gap-1 bg-gradient-to-r from-violet to-coral text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg">
+          <i data-lucide="star" class="w-3 h-3"></i><span data-i18n="projects.topPick">Popular</span>
+        </div>
+        <div class="browser-chrome px-4 py-3 border-b border-base-border" style="--c1:rgba(232,137,111,0.16); --c2:rgba(232,196,104,0.10);">
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF5F57]"></span><span class="w-2 h-2 rounded-full bg-[#FEBC2E]"></span><span class="w-2 h-2 rounded-full bg-[#28C840]"></span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/70 border border-base-border rounded-md px-2 py-1 font-mono text-[10px] text-ink-faint truncate">
+            <i data-lucide="lock" class="w-3 h-3"></i> rlgomes92.github.io/coffe
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-coral/10 flex items-center justify-center mb-4">
+            <i data-lucide="coffee" class="w-5 h-5 text-coral"></i>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-ink mb-2">Coffe</h3>
+          <div class="flex items-center gap-1.5 text-xs font-medium text-[#C96A50] bg-coral/10 rounded-lg px-2.5 py-1 w-fit mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+            <span data-i18n="project.graonegro.highlight">Quiz de recomendação + assinatura</span>
+          </div>
+          <p class="text-sm text-ink-dim leading-relaxed mb-5 flex-1" data-i18n="project.graonegro">
+            E-commerce de café especial com quiz interativo de recomendação, planos de assinatura mensal e integração com Shopee e WhatsApp.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">HTML</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">CSS</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">JavaScript</span>
+          </div>
+          <a href="https://rlgomes92.github.io/coffe/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-violet hover:text-coral transition-colors">
+            <span data-i18n="projects.live">Ver Demo</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 8 -->
+      <article class="reveal card-glow rounded-2xl border border-base-border bg-white overflow-hidden flex flex-col shadow-card transition-all duration-300">
+        <div class="browser-chrome px-4 py-3 border-b border-base-border" style="--c1:rgba(232,196,104,0.16); --c2:rgba(232,137,111,0.10);">
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF5F57]"></span><span class="w-2 h-2 rounded-full bg-[#FEBC2E]"></span><span class="w-2 h-2 rounded-full bg-[#28C840]"></span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/70 border border-base-border rounded-md px-2 py-1 font-mono text-[10px] text-ink-faint truncate">
+            <i data-lucide="lock" class="w-3 h-3"></i> rlgomes92.github.io/leo
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center mb-4">
+            <i data-lucide="shopping-bag" class="w-5 h-5 text-violet"></i>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-ink mb-2">São Luís Imports</h3>
+          <div class="flex items-center gap-1.5 text-xs font-medium text-violet-deep bg-violet/10 rounded-lg px-2.5 py-1 w-fit mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+            <span data-i18n="project.saoluis.highlight">Carrinho completo + WhatsApp</span>
+          </div>
+          <p class="text-sm text-ink-dim leading-relaxed mb-5 flex-1" data-i18n="project.saoluis">
+            Loja online de moda e sneakers importados, com carrinho de compras completo, catálogo por categoria e finalização de pedido direto no WhatsApp.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">HTML</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">JavaScript</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">WhatsApp API</span>
+          </div>
+          <a href="https://rlgomes92.github.io/leo/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-violet hover:text-coral transition-colors">
+            <span data-i18n="projects.live">Ver Demo</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 9 -->
+      <article class="reveal card-glow rounded-2xl border border-base-border bg-white overflow-hidden flex flex-col shadow-card transition-all duration-300">
+        <div class="browser-chrome px-4 py-3 border-b border-base-border" style="--c1:rgba(232,137,111,0.16); --c2:rgba(232,196,104,0.10);">
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF5F57]"></span><span class="w-2 h-2 rounded-full bg-[#FEBC2E]"></span><span class="w-2 h-2 rounded-full bg-[#28C840]"></span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/70 border border-base-border rounded-md px-2 py-1 font-mono text-[10px] text-ink-faint truncate">
+            <i data-lucide="lock" class="w-3 h-3"></i> rlgomes92.github.io/Iphone
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-coral/10 flex items-center justify-center mb-4">
+            <i data-lucide="target" class="w-5 h-5 text-coral"></i>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-ink mb-2">Geração de Valor</h3>
+          <div class="flex items-center gap-1.5 text-xs font-medium text-[#C96A50] bg-coral/10 rounded-lg px-2.5 py-1 w-fit mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+            <span data-i18n="project.geracaodevalor.highlight">Sistema gamificado de metas</span>
+          </div>
+          <p class="text-sm text-ink-dim leading-relaxed mb-5 flex-1" data-i18n="project.geracaodevalor">
+            App gamificado de metas e recompensas, onde tarefas geram pontos até alcançar um objetivo — pensado para engajar e motivar no dia a dia.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">HTML</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">JavaScript</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">LocalStorage</span>
+          </div>
+          <a href="https://rlgomes92.github.io/Iphone/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-violet hover:text-coral transition-colors">
+            <span data-i18n="projects.live">Ver Demo</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 10 -->
+      <article class="reveal card-glow rounded-2xl border border-base-border bg-white overflow-hidden flex flex-col shadow-card transition-all duration-300 sm:col-span-2 lg:col-span-1">
+        <div class="browser-chrome px-4 py-3 border-b border-base-border" style="--c1:rgba(232,196,104,0.16); --c2:rgba(232,137,111,0.10);">
+          <div class="flex items-center gap-1.5 mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#FF5F57]"></span><span class="w-2 h-2 rounded-full bg-[#FEBC2E]"></span><span class="w-2 h-2 rounded-full bg-[#28C840]"></span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/70 border border-base-border rounded-md px-2 py-1 font-mono text-[10px] text-ink-faint truncate">
+            <i data-lucide="lock" class="w-3 h-3"></i> rlgomes92.github.io/Nb
+          </div>
+        </div>
+        <div class="p-6 flex flex-col flex-1">
+          <div class="w-10 h-10 rounded-lg bg-violet/10 flex items-center justify-center mb-4">
+            <i data-lucide="clipboard-list" class="w-5 h-5 text-violet"></i>
+          </div>
+          <h3 class="font-display text-lg font-semibold text-ink mb-2">NB Diogo</h3>
+          <div class="flex items-center gap-1.5 text-xs font-medium text-violet-deep bg-violet/10 rounded-lg px-2.5 py-1 w-fit mb-3">
+            <i data-lucide="zap" class="w-3.5 h-3.5 shrink-0"></i>
+            <span data-i18n="project.nbdiogo.highlight">Gestão e orçamentos sob medida</span>
+          </div>
+          <p class="text-sm text-ink-dim leading-relaxed mb-5 flex-1" data-i18n="project.nbdiogo">
+            Um sistema sob medida de gestão e orçamentos, criado para organizar processos e agilizar a rotina administrativa do cliente.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-6">
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">HTML</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">JavaScript</span>
+            <span class="font-mono text-[11px] px-2.5 py-1 rounded-full border border-base-border text-ink-dim bg-base-surface2">Tailwind</span>
+          </div>
+          <a href="https://rlgomes92.github.io/Nb/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-violet hover:text-coral transition-colors">
+            <span data-i18n="projects.live">Ver Demo</span> <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS / STACK ============ -->
+<section id="skills" class="relative px-6 py-24 border-b border-base-border">
+  <div class="max-w-6xl mx-auto">
+    <div class="max-w-2xl mb-12 reveal">
+      <span class="font-mono text-xs text-violet tracking-widest uppercase" data-i18n="skills.eyebrow">/ stack</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold mt-3 tracking-tight" data-i18n="skills.title">Ferramentas que uso.</h2>
+      <div class="inline-flex items-center gap-2 mt-4 bg-emerald-50 border border-emerald-200 rounded-full px-4 py-2">
+        <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+        <span class="text-sm text-emerald-800"><span data-i18n="about.degree.title">Tecnólogo em Análise e Desenvolvimento de Sistemas</span> — UNICID</span>
+        <span class="inline-flex items-center gap-1 font-mono text-[10px] text-emerald-700 bg-white border border-emerald-200 rounded-full px-2 py-0.5">
+          <i data-lucide="badge-check" class="w-3 h-3"></i>
+          <span data-i18n="about.degree.verified">Verificado</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="reveal rounded-2xl border border-base-border bg-white overflow-hidden shadow-card">
+      <div class="flex items-center gap-2 px-5 py-3 border-b border-base-border bg-base-surface2">
+        <i data-lucide="terminal" class="w-4 h-4 text-ink-faint"></i>
+        <span class="font-mono text-xs text-ink-faint">tech_stack.json</span>
+        <span class="ml-auto font-mono text-[10px] text-emerald-600 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>up to date</span>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-px bg-base-border">
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="file-code-2" class="w-4 h-4 text-coral group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">HTML5</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="palette" class="w-4 h-4 text-violet group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">CSS3</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="braces" class="w-4 h-4 text-coral group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">JavaScript</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="code-2" class="w-4 h-4 text-violet group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">TypeScript</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="atom" class="w-4 h-4 text-coral group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">React</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="server" class="w-4 h-4 text-violet group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">Node.js</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="cpu" class="w-4 h-4 text-coral group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">Python</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="database" class="w-4 h-4 text-violet group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">SQL</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="wind" class="w-4 h-4 text-coral group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">Tailwind CSS</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="git-branch" class="w-4 h-4 text-violet group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">Git</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="github" class="w-4 h-4 text-coral group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">GitHub</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="sparkles" class="w-4 h-4 text-violet group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">AI-Assisted Dev</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="smartphone" class="w-4 h-4 text-coral group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">Responsive Design</span>
+        </div>
+        <div class="bg-white p-5 flex items-center gap-3 hover:bg-base-surface2 transition-colors group">
+          <i data-lucide="rocket" class="w-4 h-4 text-violet group-hover:scale-110 transition-transform"></i>
+          <span class="font-mono text-sm">Vercel / Netlify</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<section id="contact" class="relative px-6 py-24">
+  <div class="max-w-4xl mx-auto text-center relative reveal">
+    <div class="absolute inset-0 flex items-center justify-center -z-10">
+      <div class="w-[500px] h-[300px] bg-violet/15 glow-orb rounded-full"></div>
+    </div>
+
+    <span class="font-mono text-xs text-violet tracking-widest uppercase" data-i18n="contact.eyebrow">/ contato</span>
+    <h2 class="font-display text-3xl sm:text-5xl font-semibold mt-4 mb-6 tracking-tight" data-i18n="contact.title">
+      Vamos construir seu próximo projeto juntos.
+    </h2>
+    <p class="text-ink-dim max-w-xl mx-auto mb-10" data-i18n="contact.subtitle">
+      Tem uma ideia, um MVP ou uma landing page que precisa sair rápido? Vamos conversar sobre como posso ajudar.
+    </p>
+
+    <a href="mailto:rlgomes92@gmail.com?subject=Project%20Inquiry" class="inline-flex items-center gap-2 bg-violet hover:bg-violet-deep text-[#3D2E0A] font-medium px-8 py-4 rounded-xl shadow-glow transition-all hover:-translate-y-0.5">
+      <i data-lucide="mail" class="w-4 h-4"></i>
+      rlgomes92@gmail.com
+    </a>
+
+    <div class="flex items-center justify-center gap-6 mt-12">
+      <a href="https://github.com/rlgomes92" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="w-12 h-12 rounded-full border border-base-border bg-white flex items-center justify-center shadow-card hover:-translate-y-1 hover:shadow-lift transition-all">
+        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="#181717"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.75 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.9 10.9 0 0 1 5.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.73.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .3.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/rlgomes2015" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-12 h-12 rounded-full border border-base-border bg-white flex items-center justify-center shadow-card hover:-translate-y-1 hover:shadow-lift transition-all">
+        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="#0A66C2"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+      </a>
+      <a href="https://wa.me/5511983179592" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-12 h-12 rounded-full border border-base-border bg-white flex items-center justify-center shadow-card hover:-translate-y-1 hover:shadow-lift transition-all">
+        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="#25D366"><path d="M12.01 2C6.49 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.08-1.33A9.96 9.96 0 0 0 12.01 22C17.53 22 22 17.52 22 12S17.53 2 12.01 2Zm5.8 14.2c-.24.68-1.4 1.32-1.94 1.4-.5.08-1.13.11-1.83-.12-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.16-4.94-4.35-.14-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36h.55c.18 0 .42-.03.64.5.24.57.8 1.98.87 2.12.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.37-.43.5-.14.14-.29.29-.13.57.17.29.75 1.24 1.6 2 1.1.98 2.03 1.29 2.32 1.43.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.63-.14.26.1 1.63.77 1.91.91.29.14.48.21.55.33.07.12.07.67-.17 1.35Z"/></svg>
+      </a>
+      <a href="mailto:rlgomes92@gmail.com" aria-label="Gmail" class="w-12 h-12 rounded-full border border-base-border bg-white flex items-center justify-center shadow-card hover:-translate-y-1 hover:shadow-lift transition-all">
+        <svg viewBox="0 0 24 24" class="w-5 h-5"><path fill="#EA4335" d="M2.5 6.5 12 13l9.5-6.5V6a1.5 1.5 0 0 0-1.5-1.5h-1.09L12 10.5 4.09 4.5H3A1.5 1.5 0 0 0 1.5 6v.5Z"/><path fill="#FBBC05" d="M1.5 6.5v11A1.5 1.5 0 0 0 3 19h1V7.83l-2.5-1.9Z"/><path fill="#34A853" d="M20 19h1a1.5 1.5 0 0 0 1.5-1.5v-11L20 7.83V19Z"/><path fill="#4285F4" d="M4 19h16V7.83l-8 6.14-8-6.14V19Z"/><path fill="#C5221F" d="M17.91 4.5 12 9 6.09 4.5H4.09L12 10.5l7.91-6H17.91Z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <footer class="max-w-6xl mx-auto mt-24 pt-8 border-t border-base-border flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-sm text-ink-faint" data-i18n="footer.rights">© 2026 rlgomes.dev — Todos os direitos reservados.</p>
+    <p class="font-mono text-xs text-ink-faint" data-i18n="footer.tagline">Feito com velocidade & paixão</p>
+  </footer>
+</section>
+
+<script>
+  lucide.createIcons();
+
+  const translations = {
+    pt: {
+      "nav.about": "Sobre", "nav.process": "Como Trabalho", "nav.projects": "Projetos", "nav.skills": "Stack", "nav.contact": "Contato", "nav.hire": "Contrate-me",
+      "hero.badge": "DESENVOLVIMENTO FRONT-END COM IA",
+      "hero.available": "Disponível para novos projetos",
+      "hero.title1": "Olá, sou Desenvolvedor Front-End",
+      "hero.title2": "& Construtor de MVPs Rápidos.",
+      "hero.subtitle": "Transformo ideias em aplicações web e landing pages de alta performance e visual impecável, em tempo recorde, usando tecnologia moderna e IA.",
+      "hero.rotatorPrefix": "construindo agora:",
+      "hero.cta1": "Ver Projetos", "hero.cta2": "Contrate-me",
+      "about.eyebrow": "/ sobre",
+      "about.title": "Meu superpoder é velocidade sem abrir mão da qualidade.",
+      "about.p1": "Sou formado em Análise e Desenvolvimento de Sistemas (ADS), mas meu diferencial real não é o diploma — é a velocidade com que transformo uma ideia em um produto pronto para o mercado.",
+      "about.p2": "Domino fluxos de desenvolvimento assistido por Inteligência Artificial para planejar, construir e entregar MVPs e sites robustos em uma fração do tempo tradicional, sem abrir mão de código limpo e qualidade visual — e sem barreiras de linguagem, adaptando a tecnologia ao que cada projeto exige.",
+      "about.p3": "O resultado: startups e empresas recebem um produto pronto para o mercado mais rápido, com a precisão estética de um design feito à mão.",
+      "about.stat1label": "entrega mais rápida", "about.stat2label": "projetos entregues", "about.stat3label": "builds responsivos",
+      "about.degree.title": "Tecnólogo em Análise e Desenvolvimento de Sistemas",
+      "about.degree.verified": "Verificado",
+      "about.degree.dateLabel": "Colação de Grau",
+      "about.degree.verifyLink": "Verificar autenticidade do diploma",
+      "process.eyebrow": "/ como trabalho", "process.title": "Do briefing ao deploy, sem enrolação.",
+      "process.subtitle": "Um fluxo enxuto, potencializado por IA, para sair da ideia ao produto no ar em dias, não meses.",
+      "process.step1.title": "Descoberta", "process.step1.desc": "Entendo objetivos, público e escopo para focar no que realmente importa.",
+      "process.step2.title": "Design", "process.step2.desc": "Conceitos visuais rápidos e distintos, alinhados à sua marca e ao seu público.",
+      "process.step3.title": "Construção com IA", "process.step3.desc": "Desenvolvo com ferramentas de IA generativa para ganhar velocidade sem perder qualidade, adaptando a linguagem ao que o projeto exigir.",
+      "process.step4.title": "Deploy & Iteração", "process.step4.desc": "Publico em Vercel/Netlify, colho feedback real e itero rápido.",
+      "projects.eyebrow": "/ projetos", "projects.title": "Trabalhos selecionados.",
+      "projects.subtitle": "Alguns produtos reais que projetei e entreguei do início ao fim — da ideia ao deploy em produção.",
+      "projects.live": "Ver Demo",
+      "projects.banner": "projetos reais, no ar, prontos pra você conferir agora",
+      "projects.topPick": "Popular",
+      "project.techmm": "Site completo para assistência técnica de celulares e loja de acessórios, com catálogo filtrável, formulário de orçamento e assistente virtual integrado.",
+      "project.techmm.highlight": "Loja + assistência técnica com chatbot",
+      "project.techmm.feature1": "Catálogo com filtro", "project.techmm.feature2": "Chatbot integrado",
+      "project.graonegro": "E-commerce de café especial com quiz interativo de recomendação, planos de assinatura mensal e integração com Shopee e WhatsApp.",
+      "project.graonegro.highlight": "Quiz de recomendação + assinatura",
+      "project.graonegro.feature1": "Quiz de recomendação", "project.graonegro.feature2": "Planos de assinatura",
+      "project.saoluis": "Loja online de moda e sneakers importados, com carrinho de compras completo, catálogo por categoria e finalização de pedido direto no WhatsApp.",
+      "project.saoluis.highlight": "Carrinho completo + WhatsApp",
+      "project.saoluis.feature1": "Carrinho completo", "project.saoluis.feature2": "Checkout via WhatsApp",
+      "project.geracaodevalor": "App gamificado de metas e recompensas, onde tarefas geram pontos até alcançar um objetivo — pensado para engajar e motivar no dia a dia.",
+      "project.geracaodevalor.highlight": "Sistema gamificado de metas",
+      "project.geracaodevalor.feature1": "Sistema de pontos", "project.geracaodevalor.feature2": "Metas gamificadas",
+      "project.nbdiogo": "Um sistema sob medida de gestão e orçamentos, criado para organizar processos e agilizar a rotina administrativa do cliente.",
+      "project.nbdiogo.highlight": "Gestão e orçamentos sob medida",
+      "project.dpaz": "Um e-commerce elegante e clean para uma marca de confeitaria, criado para destacar produtos e converter pedidos com uma experiência de compra fluida, pensada primeiro para o mobile.",
+      "project.dpaz.highlight": "Checkout pensado para conversão mobile",
+      "project.fincontrol": "Um dashboard financeiro pessoal para controle de receitas, despesas e saldo, com uma interface focada em dados e fácil de entender.",
+      "project.fincontrol.highlight": "Visualização de dados clara para decisões rápidas",
+      "project.voef5": "Uma landing page institucional moderna, focada em presença de marca, carregamento rápido e um layout claro voltado para conversão.",
+      "project.voef5.highlight": "Carregamento otimizado em segundos",
+      "project.interclass": "Uma plataforma de eventos e esportes criada para organizar competições, exibir cronogramas e engajar participantes com um layout dinâmico.",
+      "project.interclass.highlight": "Cronogramas dinâmicos e alto engajamento",
+      "project.paisdeprematuro": "Um site social com uma interface limpa e acolhedora, criado para informar e conectar pais de bebês prematuros a recursos e comunidade.",
+      "project.paisdeprematuro.highlight": "UI acolhedora para um momento sensível",
+      "skills.eyebrow": "/ stack", "skills.title": "Ferramentas que uso.",
+      "contact.eyebrow": "/ contato", "contact.title": "Vamos construir seu próximo projeto juntos.",
+      "contact.subtitle": "Tem uma ideia, um MVP ou uma landing page que precisa sair rápido? Vamos conversar sobre como posso ajudar.",
+      "footer.rights": "© 2026 rlgomes.dev — Todos os direitos reservados.", "footer.tagline": "Feito com velocidade & paixão",
+      "roles": ["Desenvolvedor Front-End", "Construtor de MVPs", "Dev Assistido por IA", "Criador de Landing Pages"],
+    },
+    en: {
+      "nav.about": "About", "nav.process": "How I Work", "nav.projects": "Projects", "nav.skills": "Stack", "nav.contact": "Contact", "nav.hire": "Hire Me",
+      "hero.badge": "AI-ASSISTED FRONT-END DEVELOPMENT",
+      "hero.available": "Available for new projects",
+      "hero.title1": "Hi, I'm a Front-End Developer",
+      "hero.title2": "& Fast MVP Builder.",
+      "hero.subtitle": "I turn ideas into high-performance, stunning web apps and landing pages in record time using modern tech and AI.",
+      "hero.rotatorPrefix": "currently building:",
+      "hero.cta1": "View Projects", "hero.cta2": "Hire Me",
+      "about.eyebrow": "/ about",
+      "about.title": "My superpower is speed without compromise.",
+      "about.p1": "I'm a graduate in Systems Analysis and Development (ADS), but my real edge isn't the degree — it's how fast I go from idea to a polished, production-ready product.",
+      "about.p2": "I've mastered AI-assisted development workflows to plan, build, and ship robust MVPs and full websites in a fraction of the usual time, without sacrificing clean code or visual quality — and without language barriers, adapting to whatever stack best fits each project.",
+      "about.p3": "The result: startups and businesses get a market-ready product faster, with the aesthetic precision of a hand-crafted design.",
+      "about.stat1label": "faster delivery", "about.stat2label": "shipped projects", "about.stat3label": "responsive builds",
+      "about.degree.title": "Associate Degree in Systems Analysis and Development",
+      "about.degree.verified": "Verified",
+      "about.degree.dateLabel": "Graduation Date",
+      "about.degree.verifyLink": "Verify diploma authenticity",
+      "process.eyebrow": "/ how i work", "process.title": "From brief to live, no fluff.",
+      "process.subtitle": "A lean, AI-powered workflow to go from idea to a live product in days, not months.",
+      "process.step1.title": "Discovery", "process.step1.desc": "I understand goals, audience and scope so we focus on what actually matters.",
+      "process.step2.title": "Design", "process.step2.desc": "Fast, distinctive visual concepts aligned with your brand and audience.",
+      "process.step3.title": "AI-Assisted Build", "process.step3.desc": "I build with generative AI tools to move fast without sacrificing quality, adapting language and stack to whatever the project needs.",
+      "process.step4.title": "Ship & Iterate", "process.step4.desc": "I deploy to Vercel/Netlify, gather real feedback and iterate quickly.",
+      "projects.eyebrow": "/ projects", "projects.title": "Selected work.",
+      "projects.subtitle": "A few real products I've designed and shipped end-to-end — from concept to live deployment.",
+      "projects.live": "Live Demo",
+      "projects.banner": "real, live projects, ready for you to check out now",
+      "projects.topPick": "Popular",
+      "project.techmm": "A full site for phone repair services and an accessories store, with filterable catalog, quote form and a built-in virtual assistant.",
+      "project.techmm.highlight": "Repair shop + store with chatbot",
+      "project.techmm.feature1": "Filterable catalog", "project.techmm.feature2": "Built-in chatbot",
+      "project.graonegro": "A specialty coffee e-commerce with an interactive recommendation quiz, monthly subscription plans, and Shopee and WhatsApp integration.",
+      "project.graonegro.highlight": "Recommendation quiz + subscriptions",
+      "project.graonegro.feature1": "Recommendation quiz", "project.graonegro.feature2": "Subscription plans",
+      "project.saoluis": "An online store for imported fashion and sneakers, with a full shopping cart, category catalog and WhatsApp checkout.",
+      "project.saoluis.highlight": "Full cart + WhatsApp checkout",
+      "project.saoluis.feature1": "Full shopping cart", "project.saoluis.feature2": "WhatsApp checkout",
+      "project.geracaodevalor": "A gamified goals-and-rewards app where completing tasks earns points toward a target — designed to engage and motivate daily habits.",
+      "project.geracaodevalor.highlight": "Gamified goal-tracking system",
+      "project.geracaodevalor.feature1": "Points system", "project.geracaodevalor.feature2": "Gamified goals",
+      "project.nbdiogo": "A custom management and quoting system, built to organize processes and speed up the client's administrative routine.",
+      "project.nbdiogo.highlight": "Custom management & quoting",
+      "project.dpaz": "A clean, elegant e-commerce site for a bakery brand, built to showcase products and drive orders with a smooth, mobile-first shopping experience.",
+      "project.dpaz.highlight": "Checkout flow built for mobile conversion",
+      "project.fincontrol": "A personal financial dashboard system for tracking income, expenses and balances, with a data-focused, easy-to-read interface.",
+      "project.fincontrol.highlight": "Clear data visualization for fast decisions",
+      "project.voef5": "A modern institutional landing page focused on brand presence, fast load times and a clear conversion-driven layout.",
+      "project.voef5.highlight": "Optimized to load in seconds",
+      "project.interclass": "An event and sports platform built to organize competitions, showcase schedules and engage participants with a dynamic layout.",
+      "project.interclass.highlight": "Dynamic scheduling and high engagement",
+      "project.paisdeprematuro": "A social support site with a clean, calming UI, built to inform and connect parents of premature babies with resources and community.",
+      "project.paisdeprematuro.highlight": "Warm UI for a sensitive moment",
+      "skills.eyebrow": "/ stack", "skills.title": "Tools I build with.",
+      "contact.eyebrow": "/ contact", "contact.title": "Let's build your next project together.",
+      "contact.subtitle": "Got an idea, an MVP, or a landing page that needs to ship fast? Let's talk about how I can help.",
+      "footer.rights": "© 2026 rlgomes.dev — All rights reserved.", "footer.tagline": "Designed with speed & passion",
+      "roles": ["Front-End Developer", "MVP Builder", "AI-Assisted Developer", "Landing Page Creator"],
+    },
+    es: {
+      "nav.about": "Sobre mí", "nav.process": "Cómo Trabajo", "nav.projects": "Proyectos", "nav.skills": "Stack", "nav.contact": "Contacto", "nav.hire": "Contrátame",
+      "hero.badge": "DESARROLLO FRONT-END CON IA",
+      "hero.available": "Disponible para nuevos proyectos",
+      "hero.title1": "Hola, soy Desarrollador Front-End",
+      "hero.title2": "& Constructor de MVPs Rápidos.",
+      "hero.subtitle": "Convierto ideas en aplicaciones web y landing pages de alto rendimiento y aspecto impecable, en tiempo récord, usando tecnología moderna e IA.",
+      "hero.rotatorPrefix": "construyendo ahora:",
+      "hero.cta1": "Ver Proyectos", "hero.cta2": "Contrátame",
+      "about.eyebrow": "/ sobre mí",
+      "about.title": "Mi superpoder es la velocidad sin comprometer la calidad.",
+      "about.p1": "Soy graduado en Análisis y Desarrollo de Sistemas (ADS), pero mi verdadera ventaja no es el título — es la rapidez con la que paso de una idea a un producto pulido y listo para producción.",
+      "about.p2": "Domino flujos de desarrollo asistido por Inteligencia Artificial para planificar, construir y entregar MVPs y sitios robustos en una fracción del tiempo habitual, sin sacrificar código limpio ni calidad visual — y sin barreras de lenguaje, adaptándome a la tecnología que mejor se ajuste a cada proyecto.",
+      "about.p3": "El resultado: startups y empresas obtienen un producto listo para el mercado más rápido, con la precisión estética de un diseño hecho a mano.",
+      "about.stat1label": "entrega más rápida", "about.stat2label": "proyectos entregados", "about.stat3label": "builds responsivos",
+      "about.degree.title": "Tecnólogo en Análisis y Desarrollo de Sistemas",
+      "about.degree.verified": "Verificado",
+      "about.degree.dateLabel": "Fecha de Graduación",
+      "about.degree.verifyLink": "Verificar autenticidad del diploma",
+      "process.eyebrow": "/ cómo trabajo", "process.title": "Del brief al despliegue, sin rodeos.",
+      "process.subtitle": "Un flujo ágil, potenciado por IA, para pasar de la idea a un producto en línea en días, no meses.",
+      "process.step1.title": "Descubrimiento", "process.step1.desc": "Entiendo objetivos, audiencia y alcance para enfocarnos en lo que realmente importa.",
+      "process.step2.title": "Diseño", "process.step2.desc": "Conceptos visuales rápidos y distintivos, alineados con tu marca y audiencia.",
+      "process.step3.title": "Construcción con IA", "process.step3.desc": "Desarrollo con herramientas de IA generativa para ganar velocidad sin perder calidad, adaptando el lenguaje a lo que el proyecto necesite.",
+      "process.step4.title": "Despliegue e Iteración", "process.step4.desc": "Publico en Vercel/Netlify, recojo feedback real e itero rápido.",
+      "projects.eyebrow": "/ proyectos", "projects.title": "Trabajos seleccionados.",
+      "projects.subtitle": "Algunos productos reales que diseñé y entregué de principio a fin — del concepto al despliegue en producción.",
+      "projects.live": "Ver Demo",
+      "projects.banner": "proyectos reales, en línea, listos para que los veas ahora",
+      "projects.topPick": "Popular",
+      "project.techmm": "Sitio completo para asistencia técnica de celulares y tienda de accesorios, con catálogo filtrable, formulario de presupuesto y asistente virtual integrado.",
+      "project.techmm.highlight": "Tienda + asistencia técnica con chatbot",
+      "project.techmm.feature1": "Catálogo con filtro", "project.techmm.feature2": "Chatbot integrado",
+      "project.graonegro": "E-commerce de café especial con quiz interactivo de recomendación, planes de suscripción mensual e integración con Shopee y WhatsApp.",
+      "project.graonegro.highlight": "Quiz de recomendación + suscripción",
+      "project.graonegro.feature1": "Quiz de recomendación", "project.graonegro.feature2": "Planes de suscripción",
+      "project.saoluis": "Tienda online de moda y sneakers importados, con carrito de compras completo, catálogo por categoría y checkout directo por WhatsApp.",
+      "project.saoluis.highlight": "Carrito completo + WhatsApp",
+      "project.saoluis.feature1": "Carrito completo", "project.saoluis.feature2": "Checkout por WhatsApp",
+      "project.geracaodevalor": "App gamificada de metas y recompensas, donde las tareas generan puntos hasta alcanzar un objetivo — pensada para motivar el día a día.",
+      "project.geracaodevalor.highlight": "Sistema gamificado de metas",
+      "project.geracaodevalor.feature1": "Sistema de puntos", "project.geracaodevalor.feature2": "Metas gamificadas",
+      "project.nbdiogo": "Un sistema a medida de gestión y presupuestos, creado para organizar procesos y agilizar la rutina administrativa del cliente.",
+      "project.nbdiogo.highlight": "Gestión y presupuestos a medida",
+      "project.dpaz": "Un e-commerce elegante y minimalista para una marca de repostería, creado para destacar productos e impulsar pedidos con una experiencia de compra fluida, pensada primero para móvil.",
+      "project.dpaz.highlight": "Checkout pensado para conversión móvil",
+      "project.fincontrol": "Un panel financiero personal para controlar ingresos, gastos y saldos, con una interfaz enfocada en datos y fácil de leer.",
+      "project.fincontrol.highlight": "Visualización de datos clara para decisiones rápidas",
+      "project.voef5": "Una landing page institucional moderna, enfocada en la presencia de marca, tiempos de carga rápidos y un diseño claro orientado a la conversión.",
+      "project.voef5.highlight": "Carga optimizada en segundos",
+      "project.interclass": "Una plataforma de eventos y deportes creada para organizar competencias, mostrar horarios e involucrar a los participantes con un diseño dinámico.",
+      "project.interclass.highlight": "Horarios dinámicos y alta participación",
+      "project.paisdeprematuro": "Un sitio de apoyo social con una interfaz limpia y acogedora, creado para informar y conectar a padres de bebés prematuros con recursos y comunidad.",
+      "project.paisdeprematuro.highlight": "UI acogedora para un momento sensible",
+      "skills.eyebrow": "/ stack", "skills.title": "Herramientas que uso.",
+      "contact.eyebrow": "/ contacto", "contact.title": "Construyamos juntos tu próximo proyecto.",
+      "contact.subtitle": "¿Tienes una idea, un MVP o una landing page que necesita salir rápido? Hablemos de cómo puedo ayudarte.",
+      "footer.rights": "© 2026 rlgomes.dev — Todos los derechos reservados.", "footer.tagline": "Diseñado con velocidad y pasión",
+      "roles": ["Desarrollador Front-End", "Constructor de MVPs", "Desarrollador Asistido por IA", "Creador de Landing Pages"],
+    },
+  };
+
+  const htmlLangMap = { pt: "pt-BR", en: "en", es: "es" };
+  let currentLang = "pt";
+  let rotatorTimer = null;
+
+  function typewriter(words) {
+    if (rotatorTimer) clearInterval(rotatorTimer);
+    const el = document.getElementById("roleRotator");
+    let wordIndex = 0, charIndex = 0;
+
+    function typeStep() {
+      const w = words[wordIndex];
+      charIndex++;
+      el.textContent = w.slice(0, charIndex);
+      if (charIndex === w.length) {
+        clearInterval(rotatorTimer);
+        setTimeout(() => { rotatorTimer = setInterval(deleteStep, 45); }, 1400);
+      }
+    }
+    function deleteStep() {
+      const w = words[wordIndex];
+      charIndex--;
+      el.textContent = w.slice(0, charIndex);
+      if (charIndex === 0) {
+        wordIndex = (wordIndex + 1) % words.length;
+        clearInterval(rotatorTimer);
+        setTimeout(() => { rotatorTimer = setInterval(typeStep, 65); }, 300);
+      }
+    }
+
+    el.textContent = "";
+    rotatorTimer = setInterval(typeStep, 65);
+  }
+
+  function setLang(lang) {
+    const dict = translations[lang];
+    if (!dict) return;
+    currentLang = lang;
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      if (dict[key]) el.textContent = dict[key];
+    });
+    document.documentElement.lang = htmlLangMap[lang] || lang;
+    document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
+      btn.setAttribute("data-active", btn.getAttribute("data-lang-btn") === lang ? "true" : "false");
+    });
+    typewriter(dict.roles);
+  }
+
+  setLang("pt");
+
+  // Nav shadow on scroll
+  const nav = document.getElementById("site-nav");
+  window.addEventListener("scroll", () => {
+    nav.classList.toggle("scrolled", window.scrollY > 8);
+  }, { passive: true });
+
+  // Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("revealed");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+  // Count-up stats
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.getAttribute("data-count"), 10);
+      let current = 0;
+      const duration = 900;
+      const startTime = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        current = Math.floor(progress * target);
+        el.textContent = current;
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(tick);
+      countObserver.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll("[data-count]").forEach((el) => countObserver.observe(el));
+</script>
+
+</body>
+</html>
