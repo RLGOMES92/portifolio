@@ -1,32 +1,58 @@
-# Portfólio — Rodrigo Gomes
+# 🚀 Portfólio — Rodrigo Gomes
 
-Portfólio profissional com posicionamento em desenvolvimento Front-End, construção rápida de MVPs e desenvolvimento assistido por IA.
+Portfólio profissional de **Desenvolvedor Full Stack & Especialista em Agentes de IA**, com projetos voltados à criação de sites, sistemas web, automações e soluções digitais para negócios.
 
-🌐 **Site:** [rlgomes92.github.io/portifolio](https://rlgomes92.github.io/portifolio/)
+🌐 **Site:** https://rlgomes92.github.io/portifolio/
 
-## Recursos identificados
-- Apresentação profissional
-- Navegação responsiva
-- Alternância de idioma (PT/EN/ES)
-- Animações de entrada e elementos interativos
-- Acessibilidade com foco visível
-- Suporte a preferência por movimento reduzido
-- Seções de processo, projetos, stack e contato
+## 💼 O que desenvolvo
 
-## Tecnologias
-- HTML
-- Tailwind CSS
+- Sites profissionais e landing pages
+- Sistemas web e dashboards
+- Agentes de IA para atendimento e vendas
+- Automações de processos
+- MVPs e aplicações personalizadas
+- Integrações entre sistemas e APIs
+
+## 🧩 Projetos em destaque
+
+O portfólio reúne projetos de diferentes contextos de negócio, incluindo:
+
+- **Voe F5 Tour** — landing page comercial
+- **NB Diogo** — gestão de clientes e orçamentos
+- **FinControl** — dashboard financeiro PWA
+- **VanRotas** — gestão de transporte escolar
+- **Gami** — missões e recompensas
+- **D'Paz Confeitaria** — presença digital para negócio local
+- **Interclass Porto Seguro** — plataforma web para evento
+
+Consulte o [catálogo de projetos](PROJETOS.md) para detalhes, demonstrações e repositórios.
+
+## 🛠️ Stack
+
+- HTML5 / CSS
 - JavaScript
-- Lucide
-- Space Grotesk
-- Inter
-- JetBrains Mono
+- React
+- Tailwind CSS
+- Firebase
+- Python
+- Node.js
+- APIs e integrações
+- OpenAI API
+- Git/GitHub
 
-## Projetos
-Consulte o [catálogo de projetos](PROJETOS.md) para ver descrições, demonstrações e repositórios relacionados.
+## ✨ Recursos do portfólio
 
-## Objetivo
-Apresentar projetos e experiências de Rodrigo Gomes em uma interface profissional orientada a desenvolvimento Front-End e MVPs.
+- Interface responsiva
+- Navegação PT/EN/ES
+- Animações e elementos interativos
+- Acessibilidade e foco visível
+- Suporte a preferência por movimento reduzido
+- Seções de serviços, processo, projetos, stack e contato
 
-## Autor
-Rodrigo Gomes
+## 🎯 Objetivo
+
+Demonstrar, de forma prática, como tecnologia pode ajudar empresas a **apresentar melhor seus serviços, organizar processos, automatizar tarefas e criar novos canais digitais de atendimento e vendas**.
+
+---
+
+**Rodrigo Gomes — Desenvolvedor Full Stack & Especialista em Agentes de IA**
