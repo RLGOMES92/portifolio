@@ -7,7 +7,7 @@ const OPENAI_KEY = process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY2;
 function authorized(request) {
   const expected = process.env.CRON_SECRET;
   if (!expected) return false;
-  return request.headers.get("authorization") === `Bearer ${expected}`;
+  const authorization = typeof request.headers?.get === "function"\n    ? request.headers.get("authorization")\n    : request.headers?.authorization;\n  return authorization === `Bearer ${expected}`;
 }
 
 function cleanJson(text) {
