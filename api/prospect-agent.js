@@ -1,5 +1,3 @@
-import { URLSearchParams } from "node:url";
-
 const ZOHO_WEBTOLEAD = "https://crm.zoho.com/crm/WebToLeadForm";
 const OPENAI_URL = "https://api.openai.com/v1/responses";
 const OPENAI_KEY = process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY2;
@@ -56,7 +54,7 @@ Responda SOMENTE com um array JSON.`;
     },
     body: JSON.stringify({
       model: process.env.OPENAI_MODEL || "gpt-5-mini",
-      tools: [{ type: "web_search" }],
+      tools: [{ type: "web_search_preview" }],
       input: [
         {
           role: "system",
