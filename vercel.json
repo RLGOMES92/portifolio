@@ -2,6 +2,15 @@
   "functions": {
     "api/shopify-webhook.js": {
       "maxDuration": 30
+    },
+    "api/cron/prospect-agent.js": {
+      "maxDuration": 60
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/prospect-agent",
+      "schedule": "0 11 * * *"
+    }
+  ]
 }
