@@ -138,7 +138,7 @@ export default async function handler(request, response) {
         await createZohoLead(prospect);
         results.push({ company: prospect.company, status: "created" });
       } catch (error) {
-        results.push({ company: prospect.company, status: "error", error: error.message });
+        console.error(`[prospect-agent] erro ao criar lead ${prospect.company}: ${error.message}`);\n        results.push({ company: prospect.company, status: "error", error: error.message });
       }
     }
 
