@@ -165,7 +165,7 @@
         <button type="button" onclick="setLang('en')" data-lang-btn="en" class="lang-btn px-2.5 py-1.5 rounded-full">EN</button>
         <button type="button" onclick="setLang('es')" data-lang-btn="es" class="lang-btn px-2.5 py-1.5 rounded-full">ES</button>
       </div>
-      <a href="#contact" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium bg-ink text-white px-4 py-2 rounded-full hover:bg-violet transition-colors" data-i18n="nav.hire">Contrate-me</a>
+      <a href="#contact" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium bg-ink text-white px-4 py-2 rounded-full hover:bg-violet transition-colors" data-i18n="nav.hire">Solicitar orçamento</a>
     </div>
   </nav>
 </header>
@@ -223,7 +223,7 @@
     <div class="fade-up [animation-delay:0.25s] mt-6 inline-flex items-center gap-2 font-mono text-sm bg-[#14141F] text-white/90 rounded-lg px-4 py-2.5 shadow-lift">
       <i data-lucide="terminal" class="w-4 h-4 text-emerald-400 shrink-0"></i>
       <span data-i18n="hero.rotatorPrefix">construindo agora:</span>
-      <span id="roleRotator" class="text-[#FF8266] font-medium">Desenvolvedor Front-End</span><span class="caret"></span>
+      <span id="roleRotator" class="text-[#FF8266] font-medium">Desenvolvedor Full Stack</span><span class="caret"></span>
     </div>
 
     <div class="fade-up [animation-delay:0.3s] mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -281,7 +281,7 @@
   <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
     <div class="reveal">
       <span class="font-mono text-xs text-violet tracking-widest uppercase" data-i18n="about.eyebrow">/ sobre</span>
-      <h2 class="font-display text-3xl sm:text-4xl font-semibold mt-3 mb-6 tracking-tight" data-i18n="about.title">Meu superpoder é velocidade sem abrir mão da qualidade.</h2>
+      <h2 class="font-display text-3xl sm:text-4xl font-semibold mt-3 mb-6 tracking-tight" data-i18n="about.title">Tecnologia sob medida para transformar seu negócio.</h2>
       <p class="text-ink-dim leading-relaxed mb-4" data-i18n="about.p1">
         Sou formado em Análise e Desenvolvimento de Sistemas (ADS), mas meu diferencial real não é o diploma — é a velocidade com que transformo uma ideia em um produto pronto para o mercado.
       </p>
@@ -864,6 +864,18 @@
   </div>
 </section>
 
+<!-- ============ MOBILE CONVERSION BAR ============ -->
+<div class="sm:hidden fixed bottom-0 inset-x-0 z-50 px-3 pb-3 pointer-events-none">
+  <div class="pointer-events-auto mx-auto max-w-md rounded-2xl border border-base-border bg-white/95 backdrop-blur-lg shadow-2xl p-2 flex gap-2">
+    <a href="./orcamento.html" class="flex-1 inline-flex items-center justify-center gap-2 bg-violet text-[#3D2E0A] font-semibold px-4 py-3 rounded-xl text-sm">
+      <i data-lucide="clipboard-list" class="w-4 h-4"></i> Orçamento
+    </a>
+    <a href="https://wa.me/5511983179592?text=Ol%C3%A1%20Rodrigo!%20Vi%20seu%20portf%C3%B3lio%20e%20quero%20falar%20sobre%20um%20projeto." target="_blank" rel="noopener noreferrer" class="flex-1 inline-flex items-center justify-center gap-2 border border-base-border bg-white text-ink font-semibold px-4 py-3 rounded-xl text-sm">
+      <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+    </a>
+  </div>
+</div>
+
 <!-- ============ CONTACT / FOOTER ============ -->
 <section id="contact" class="relative px-6 py-24">
   <div class="max-w-4xl mx-auto text-center relative reveal">
@@ -977,16 +989,16 @@
       "roles": ["Desenvolvedor Full Stack", "Especialista em Agentes de IA", "Automação de Processos", "Criador de Sites de Alta Conversão"],
     },
     en: {
-      "nav.about": "About", "nav.process": "How I Work", "nav.projects": "Projects", "nav.skills": "Stack", "nav.contact": "Contact", "nav.hire": "Hire Me",
-      "hero.badge": "AI-ASSISTED FRONT-END DEVELOPMENT",
+      "nav.about": "About", "nav.process": "How I Work", "nav.projects": "Projects", "nav.skills": "Stack", "nav.contact": "Contact", "nav.hire": "Request a quote",
+      "hero.badge": "WEB DEVELOPMENT + AI FOR BUSINESSES",
       "hero.available": "Available for new projects",
-      "hero.title1": "Hi, I'm a Front-End Developer",
-      "hero.title2": "& Fast MVP Builder.",
-      "hero.subtitle": "I turn ideas into high-performance, stunning web apps and landing pages in record time using modern tech and AI.",
+      "hero.title1": "Hi, I'm a Full Stack Developer",
+      "hero.title2": "& AI Agent Specialist.",
+      "hero.subtitle": "I turn business needs into high-converting websites, web systems, automations and AI solutions — focused on results, speed and customer experience.",
       "hero.rotatorPrefix": "currently building:",
-      "hero.cta1": "View Projects", "hero.cta2": "Hire Me",
+      "hero.cta1": "View Projects", "hero.cta2": "Request a quote",
       "about.eyebrow": "/ about",
-      "about.title": "My superpower is speed without compromise.",
+      "about.title": "Technology tailored to transform your business.",
       "about.p1": "I'm a graduate in Systems Analysis and Development (ADS), but my real edge isn't the degree — it's how fast I go from idea to a polished, production-ready product.",
       "about.p2": "I've mastered AI-assisted development workflows to plan, build, and ship robust MVPs and full websites in a fraction of the usual time, without sacrificing clean code or visual quality — and without language barriers, adapting to whatever stack best fits each project.",
       "about.p3": "The result: startups and businesses get a market-ready product faster, with the aesthetic precision of a hand-crafted design.",
@@ -1032,21 +1044,21 @@
       "project.paisdeprematuro.highlight": "Warm UI for a sensitive moment",
       "skills.eyebrow": "/ stack", "skills.title": "Tools I build with.",
       "contact.eyebrow": "/ contact", "contact.title": "Let's build your next project together.",
-      "contact.subtitle": "Got an idea, an MVP, or a landing page that needs to ship fast? Let's talk about how I can help.",
+      "contact.subtitle": "Choose a solution, tell me what your business needs, and get clear direction on the next step.",
       "footer.rights": "© 2026 rlgomes.dev — All rights reserved.", "footer.tagline": "Designed with speed & passion",
-      "roles": ["Front-End Developer", "MVP Builder", "AI-Assisted Developer", "Landing Page Creator"],
+      "roles": ["Full Stack Developer", "AI Agent Specialist", "Process Automation", "High-Converting Websites"],
     },
     es: {
-      "nav.about": "Sobre mí", "nav.process": "Cómo Trabajo", "nav.projects": "Proyectos", "nav.skills": "Stack", "nav.contact": "Contacto", "nav.hire": "Contrátame",
-      "hero.badge": "DESARROLLO FRONT-END CON IA",
+      "nav.about": "Sobre mí", "nav.process": "Cómo Trabajo", "nav.projects": "Proyectos", "nav.skills": "Stack", "nav.contact": "Contacto", "nav.hire": "Solicitar presupuesto",
+      "hero.badge": "DESARROLLO WEB + IA PARA EMPRESAS",
       "hero.available": "Disponible para nuevos proyectos",
-      "hero.title1": "Hola, soy Desarrollador Front-End",
-      "hero.title2": "& Constructor de MVPs Rápidos.",
-      "hero.subtitle": "Convierto ideas en aplicaciones web y landing pages de alto rendimiento y aspecto impecable, en tiempo récord, usando tecnología moderna e IA.",
+      "hero.title1": "Hola, soy Desarrollador Full Stack",
+      "hero.title2": "& Especialista en Agentes de IA.",
+      "hero.subtitle": "Transformo necesidades de negocio en sitios de alta conversión, sistemas web, automatizaciones y soluciones con IA, con foco en resultados.",
       "hero.rotatorPrefix": "construyendo ahora:",
-      "hero.cta1": "Ver Proyectos", "hero.cta2": "Contrátame",
+      "hero.cta1": "Ver Proyectos", "hero.cta2": "Solicitar presupuesto",
       "about.eyebrow": "/ sobre mí",
-      "about.title": "Mi superpoder es la velocidad sin comprometer la calidad.",
+      "about.title": "Tecnología a medida para transformar tu negocio.",
       "about.p1": "Soy graduado en Análisis y Desarrollo de Sistemas (ADS), pero mi verdadera ventaja no es el título — es la rapidez con la que paso de una idea a un producto pulido y listo para producción.",
       "about.p2": "Domino flujos de desarrollo asistido por Inteligencia Artificial para planificar, construir y entregar MVPs y sitios robustos en una fracción del tiempo habitual, sin sacrificar código limpio ni calidad visual — y sin barreras de lenguaje, adaptándome a la tecnología que mejor se ajuste a cada proyecto.",
       "about.p3": "El resultado: startups y empresas obtienen un producto listo para el mercado más rápido, con la precisión estética de un diseño hecho a mano.",
