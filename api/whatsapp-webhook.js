@@ -12,6 +12,7 @@
  * OPENAI_MODEL (default: gpt-5-mini)
  */
 const OPENAI_MODEL = process.env.OPENAI_MODEL || "gpt-5-mini";
+const OPENAI_KEY = process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY2;
 
 function json(res, status, body) {
   res.status(status).json(body);
@@ -51,8 +52,8 @@ async function sendWhatsAppText(to, text) {
 }
 
 async function generateReply(message, customerName) {
-  const key = process.env.OPENAI_API_KEY;
-  if (!key) throw new Error("OPENAI_API_KEY is not configured.");
+  const key = OPENAI_KEY;
+  if (!key) throw new Error("OPENAI_API_KEY/OPENAI_API_KEY2 is not configured.");
 
   const system = `Você é o agente comercial da Rodrigopazdev, atendendo clientes pelo WhatsApp.
 Nome da empresa/marca: Rodrigopazdev.
