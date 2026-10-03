@@ -5,22 +5,34 @@ const OPENAI_KEY = process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY2;
 function authorized(request) {
   const expected = process.env.CRON_SECRET;
   if (!expected) return false;
-  const authorization = typeof request.headers?.get === "function"\n    ? request.headers.get("authorization")\n    : request.headers?.authorization;\n  return authorization === `Bearer ${expected}`;
+
+  const authorization =
+    typeof request.headers?.get === "function"
+      ? request.headers.get("authorization")
+      : request.headers?.authorization;
+
+  return authorization === `Bearer ${expected}`;
 }
 
 function cleanJson(text) {
   const raw = String(text || "").trim();
-  const fenced = raw.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  const fenced = raw.match(/\`\`\`(?:json)?\\s*([\\s\\S]*?)\`\`\`/i);
   const candidate = fenced ? fenced[1] : raw;
   const start = candidate.indexOf("[");
   const end = candidate.lastIndexOf("]");
-  if (start < 0 || end < start) throw new Error("Resposta do agente não contém JSON válido.");
+
+  if (start < 0 || end < start) {
+    throw new Error("Resposta do agente não contém JSON válido.");
+  }
+
   return JSON.parse(candidate.slice(start, end + 1));
 }
 
 async function discoverProspects() {
   const city = process.env.PROSPECT_CITY || "São Paulo";
-  const niches = process.env.PROSPECT_NICHES || "clínicas e consultórios, escritórios, restaurantes e alimentação, imobiliárias, prestadores de serviços, academias e estúdios, comércio local, e-commerce";
+  const niches =
+    process.env.PROSPECT_NICHES ||
+    "clínicas e consultórios, escritórios, restaurantes e alimentação, imobiliárias, prestadores de serviços, academias e estúdios, comércio local, e-commerce";
 
   const prompt = `Você é o agente de prospecção B2B da Rodrigopaz.dev, empresa brasileira que vende sites profissionais, landing pages, automações, sistemas web e agentes de IA.
 
@@ -58,7 +70,8 @@ Responda SOMENTE com um array JSON.`;
       input: [
         {
           role: "system",
-          content: "Você é um agente de pesquisa comercial B2B. Privacidade, precisão e relevância vêm antes de volume.",
+          content:
+            "Você é um agente de pesquisa comercial B2B. Privacidade, precisão e relevância vêm antes de volume.",
         },
         { role: "user", content: prompt },
       ],
@@ -88,7 +101,9 @@ async function createZohoLead(prospect) {
     zc_gad: "",
     xmIwtLD: process.env.ZOHO_WEBTOLEAD_XMIWTLD,
     actionType: "TGVhZHM=",
-    returnURL: process.env.ZOHO_WEBTOLEAD_RETURN_URL || "https://portifolio-rodrigos-projects-5f32f252.vercel.app/obrigado.html",
+    returnURL:
+      process.env.ZOHO_WEBTOLEAD_RETURN_URL ||
+      "https://portifolio-rodrigos-projects-5f32f252.vercel.app/obrigado.html",
     "First Name": prospect.contact_name || "Prospect",
     "Last Name": lastName,
     Company: prospect.company || lastName,
@@ -108,7 +123,7 @@ async function createZohoLead(prospect) {
     redirect: "manual",
   });
 
-  if (!(response.ok || response.status >= 300 && response.status < 400)) {
+  if (!(response.ok || (response.status >= 300 && response.status < 400))) {
     throw new Error(`Zoho WebToLead respondeu ${response.status}`);
   }
 
@@ -119,10 +134,19 @@ export default async function handler(request, response) {
   if (request.method !== "GET") {
     return response.status(405).json({ ok: false, error: "Method Not Allowed" });
   }
+
   if (!authorized(request)) {
     return response.status(401).json({ ok: false, error: "Unauthorized" });
   }
-  if (!OPENAI_KEY || !process.env.ZOHO_WEBTOLEAD_XNQSJSDP || !process.env.ZOHO_WEBTOLEAD_XMIWTLD) {
+
+  console.log("[prospect-agent] execução autorizada iniciada");
+
+  if (
+    !OPENAI_KEY ||
+    !process.env.ZOHO_WEBTOLEAD_XNQSJSDP ||
+    !process.env.ZOHO_WEBTOLEAD_XMIWTLD
+  ) {
+    console.error("[prospect-agent] variáveis obrigatórias ausentes");
     return response.status(503).json({
       ok: false,
       error: "Agente ainda precisa das variáveis de ambiente do OpenAI e WebToLead do Zoho.",
@@ -131,24 +155,42 @@ export default async function handler(request, response) {
 
   try {
     const prospects = await discoverProspects();
+    const list = Array.isArray(prospects) ? prospects.slice(0, 5) : [];
+
+    console.log(`[prospect-agent] prospects encontrados: ${list.length}`);
+
     const results = [];
 
-    for (const prospect of Array.isArray(prospects) ? prospects.slice(0, 5) : []) {
+    for (const prospect of list) {
       try {
         await createZohoLead(prospect);
+        console.log(`[prospect-agent] lead criado no Zoho: ${prospect.company}`);
         results.push({ company: prospect.company, status: "created" });
       } catch (error) {
-        console.error(`[prospect-agent] erro ao criar lead ${prospect.company}: ${error.message}`);\n        results.push({ company: prospect.company, status: "error", error: error.message });
+        console.error(
+          `[prospect-agent] erro ao criar lead ${prospect.company}: ${error.message}`
+        );
+        results.push({
+          company: prospect.company,
+          status: "error",
+          error: error.message,
+        });
       }
     }
 
+    console.log(
+      `[prospect-agent] execução concluída: ${results.filter((item) => item.status === "created").length} leads criados`
+    );
+
     return response.status(200).json({
       ok: true,
-      found: Array.isArray(prospects) ? prospects.length : 0,
+      found: list.length,
       results,
-      note: "Leads são registrados no Zoho para revisão humana; nenhum contato externo é enviado automaticamente.",
+      note:
+        "Leads são registrados no Zoho para revisão humana; nenhum contato externo é enviado automaticamente.",
     });
   } catch (error) {
+    console.error(`[prospect-agent] execução falhou: ${error.message}`);
     return response.status(500).json({ ok: false, error: error.message });
   }
 }
