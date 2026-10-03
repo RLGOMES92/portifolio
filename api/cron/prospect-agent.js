@@ -2,6 +2,7 @@ import { URLSearchParams } from "node:url";
 
 const ZOHO_WEBTOLEAD = "https://crm.zoho.com/crm/WebToLeadForm";
 const OPENAI_URL = "https://api.openai.com/v1/responses";
+const OPENAI_KEY = process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY2;
 
 function authorized(request) {
   const expected = process.env.CRON_SECRET;
@@ -51,7 +52,7 @@ Responda SOMENTE com um array JSON.`;
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      Authorization: `Bearer ${OPENAI_KEY}`,
     },
     body: JSON.stringify({
       model: process.env.OPENAI_MODEL || "gpt-5-mini",
@@ -123,7 +124,7 @@ export default async function handler(request, response) {
   if (!authorized(request)) {
     return response.status(401).json({ ok: false, error: "Unauthorized" });
   }
-  if (!process.env.OPENAI_API_KEY || !process.env.ZOHO_WEBTOLEAD_XNQSJSDP || !process.env.ZOHO_WEBTOLEAD_XMIWTLD) {
+  if (!OPENAI_KEY || !process.env.ZOHO_WEBTOLEAD_XNQSJSDP || !process.env.ZOHO_WEBTOLEAD_XMIWTLD) {
     return response.status(503).json({
       ok: false,
       error: "Agente ainda precisa das variáveis de ambiente do OpenAI e WebToLead do Zoho.",
