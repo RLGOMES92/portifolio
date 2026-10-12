@@ -138,6 +138,43 @@
   }
   @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(2.4); opacity: 0; } }
 
+
+  /* Floating LED shortcut: projects and technology stack */
+  #floating-tech-nav { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 60; font-family: Inter, sans-serif; }
+  #floating-tech-nav .ftn-trigger {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    min-height: 52px; padding: 0 18px; border: 1px solid rgba(167,139,250,.75);
+    border-radius: 999px; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: .01em;
+    background: linear-gradient(115deg, #5B21B6 0%, #7C3AED 55%, #BE185D 120%);
+    box-shadow: 0 0 0 1px rgba(167,139,250,.18), 0 0 18px rgba(124,58,237,.5), 0 0 34px rgba(232,137,111,.18);
+    cursor: pointer; transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    animation: ftn-led-pulse 2.8s ease-in-out infinite;
+  }
+  #floating-tech-nav .ftn-trigger:hover { transform: translateY(-2px); filter: brightness(1.12); box-shadow: 0 0 0 1px rgba(196,181,253,.55), 0 0 24px rgba(124,58,237,.65), 0 0 42px rgba(232,137,111,.25); }
+  #floating-tech-nav .ftn-trigger:focus-visible, #floating-tech-nav a:focus-visible { outline: 3px solid #E8C468; outline-offset: 4px; }
+  #floating-tech-nav .ftn-led { width: 8px; height: 8px; border-radius: 50%; background: #86F7D3; box-shadow: 0 0 7px #86F7D3, 0 0 15px rgba(134,247,211,.9); flex: 0 0 auto; }
+  #floating-tech-nav .ftn-chevron { width: 14px; height: 14px; transition: transform .2s ease; }
+  #floating-tech-nav[data-open="true"] .ftn-chevron { transform: rotate(180deg); }
+  #floating-tech-nav .ftn-menu {
+    position: absolute; right: 0; bottom: calc(100% + 12px); width: 226px; padding: 8px;
+    border: 1px solid rgba(124,58,237,.25); border-radius: 16px; background: rgba(255,255,255,.96);
+    box-shadow: 0 18px 50px rgba(19,19,32,.18), 0 0 24px rgba(124,58,237,.12);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  }
+  #floating-tech-nav .ftn-menu[hidden] { display: none; }
+  #floating-tech-nav .ftn-menu a { display: flex; align-items: center; gap: 11px; padding: 12px; border-radius: 10px; color: #222137; font-size: 14px; font-weight: 600; text-decoration: none; transition: background .18s ease, color .18s ease; }
+  #floating-tech-nav .ftn-menu a:hover { background: #F3F1FC; color: #6D28D9; }
+  #floating-tech-nav .ftn-menu small { display: block; margin-top: 2px; color: #71718A; font-size: 11px; font-weight: 400; }
+  #floating-tech-nav .ftn-menu svg { width: 19px; height: 19px; color: #7C3AED; flex: 0 0 auto; }
+  #projects, #skills { scroll-margin-top: 5.5rem; }
+  @keyframes ftn-led-pulse { 0%,100% { box-shadow: 0 0 0 1px rgba(167,139,250,.18), 0 0 14px rgba(124,58,237,.42), 0 0 28px rgba(232,137,111,.14); } 50% { box-shadow: 0 0 0 1px rgba(196,181,253,.5), 0 0 23px rgba(124,58,237,.65), 0 0 40px rgba(232,137,111,.25); } }
+  @media (max-width: 480px) {
+    #floating-tech-nav { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); }
+    #floating-tech-nav .ftn-trigger { min-height: 48px; padding: 0 14px; gap: 8px; font-size: 12px; }
+    #floating-tech-nav .ftn-menu { width: min(226px, calc(100vw - 24px)); }
+  }
+  @media (prefers-reduced-motion: reduce) { #floating-tech-nav .ftn-trigger { animation: none; transition: none; } #floating-tech-nav .ftn-chevron, #floating-tech-nav .ftn-menu a { transition: none; } }
+
 </style>
 </head>
 
@@ -1227,7 +1264,55 @@
     });
   }, { threshold: 0.5 });
   document.querySelectorAll("[data-count]").forEach((el) => countObserver.observe(el));
+
+  // Floating LED navigation: accessible, mobile-friendly quick links.
+  const floatingTechNav = document.getElementById("floating-tech-nav");
+  const floatingTechTrigger = document.getElementById("ftn-trigger");
+  const floatingTechMenu = document.getElementById("ftn-menu");
+  function setFloatingTechMenu(open) {
+    floatingTechNav.dataset.open = String(open);
+    floatingTechTrigger.setAttribute("aria-expanded", String(open));
+    floatingTechMenu.hidden = !open;
+    floatingTechTrigger.setAttribute("aria-label", open ? "Fechar atalhos de projetos e tecnologias" : "Abrir atalhos de projetos e tecnologias");
+  }
+  floatingTechTrigger.addEventListener("click", () => {
+    setFloatingTechMenu(floatingTechNav.dataset.open !== "true");
+  });
+  floatingTechMenu.querySelectorAll("[data-ftn-link]").forEach((link) => {
+    link.addEventListener("click", () => setFloatingTechMenu(false));
+  });
+  document.addEventListener("click", (event) => {
+    if (!floatingTechNav.contains(event.target)) setFloatingTechMenu(false);
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setFloatingTechMenu(false);
+      floatingTechTrigger.focus();
+    }
+  });
+
 </script>
+
+
+<!-- ============ FLOATING LED NAV ============ -->
+<div id="floating-tech-nav" data-open="false">
+  <div class="ftn-menu" id="ftn-menu" hidden aria-label="Atalhos de navegação">
+    <a href="#projects" data-ftn-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      <span>Projetos<small>Produtos e demonstrações</small></span>
+    </a>
+    <a href="#skills" data-ftn-link>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></svg>
+      <span>Tecnologias<small>Stack e ferramentas</small></span>
+    </a>
+  </div>
+  <button type="button" class="ftn-trigger" id="ftn-trigger" aria-expanded="false" aria-controls="ftn-menu" aria-label="Abrir atalhos de projetos e tecnologias">
+    <span class="ftn-led" aria-hidden="true"></span>
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    <span>Projetos + Stack</span>
+    <svg class="ftn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+  </button>
+</div>
 
 </body>
 </html>
