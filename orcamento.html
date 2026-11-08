@@ -199,7 +199,7 @@ html,body{
 	.zcwf_lblLeft .zcwf_col_help {width: 40%;}
 }
 </style>
-<div class='zcwf_title' style='max-width: 600px;color: #222222; font-family:Arial;'>Rodrigopazdev - Solicitar Orçamento</div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='First_Name'>Nome</label></div><div class='zcwf_col_fld'><input type='text' id='First_Name' aria-required='false' aria-label='First Name' name='First Name' aria-valuemax='40' maxlength='40'></input><div class='zcwf_col_help'></div></div></div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='Last_Name'>Sobrenome<span style='color:red;'>*</span></label></div><div class='zcwf_col_fld'><input type='text' id='Last_Name' aria-required='true' aria-label='Last Name' name='Last Name' aria-valuemax='80' maxlength='80'></input><div class='zcwf_col_help'></div></div></div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='Company'>Empresa<span style='color:red;'>*</span></label></div><div class='zcwf_col_fld'><input type='text' id='Company' aria-required='true' aria-label='Company' name='Company' aria-valuemax='200' maxlength='200'></input><div class='zcwf_col_help'></div></div></div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='Email'>E-mail</label></div><div class='zcwf_col_fld'><input type='text' ftype='email' autocomplete='false' id='Email' aria-required='false' aria-label='Email' name='Email' aria-valuemax='100' crmlabel='' maxlength='100'></input><div class='zcwf_col_help'></div></div></div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='Phone'>Telefone</label></div><div class='zcwf_col_fld'><input type='text' id='Phone' aria-required='false' aria-label='Phone' name='Phone' aria-valuemax='30' maxlength='30'></input><div class='zcwf_col_help'></div></div></div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='LEADCF1'>Serviço de Interesse</label></div><div class='zcwf_col_fld'><select class='zcwf_col_fld_slt' role='combobox' aria-expanded='false' aria-haspopup='listbox' id='LEADCF1'onChange='addAriaSelected7636445000000795048()' aria-required='false' aria-label='LEADCF1' name='LEADCF1'  >
+<div class='zcwf_title' style='max-width: 600px;color: #222222; font-family:Arial;'>Rodrigopazdev - Solicitar Orçamento</div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='First_Name'>Nome</label></div><div class='zcwf_col_fld'><input type='text' id='First_Name' aria-required='false' aria-label='First Name' name='First Name' aria-valuemax='40' maxlength='40'></input><div class='zcwf_col_help'></div></div></div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='Last_Name'>Nome completo<span style='color:red;'>*</span></label></div><div class='zcwf_col_fld'><input type='text' id='Last_Name' aria-required='true' aria-label='Last Name' name='Last Name' aria-valuemax='80' maxlength='80'></input><div class='zcwf_col_help'></div></div></div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='Company'>Empresa<span style='color:red;'>*</span></label></div><div class='zcwf_col_fld'><input type='text' id='Company' aria-required='true' aria-label='Company' name='Company' aria-valuemax='200' maxlength='200'></input><div class='zcwf_col_help'></div></div></div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='Email'>E-mail</label></div><div class='zcwf_col_fld'><input type='text' ftype='email' autocomplete='false' id='Email' aria-required='false' aria-label='Email' name='Email' aria-valuemax='100' crmlabel='' maxlength='100'></input><div class='zcwf_col_help'></div></div></div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='Phone'>Telefone</label></div><div class='zcwf_col_fld'><input type='text' id='Phone' aria-required='false' aria-label='Phone' name='Phone' aria-valuemax='30' maxlength='30'></input><div class='zcwf_col_help'></div></div></div><div class='zcwf_row'><div class='zcwf_col_lab' style='font-size:14px; font-family: Arial;'><label for='LEADCF1'>Serviço de Interesse</label></div><div class='zcwf_col_fld'><select class='zcwf_col_fld_slt' role='combobox' aria-expanded='false' aria-haspopup='listbox' id='LEADCF1'onChange='addAriaSelected7636445000000795048()' aria-required='false' aria-label='LEADCF1' name='LEADCF1'  >
 			<option value='-None-'>-None-</option>
 			<option value='Site profissional'>Site profissional</option>
 			<option value='Agente de IA'>Agente de IA</option>
@@ -260,7 +260,7 @@ html,body{
 
 	function checkMandatory7636445000000795048(isAjax) {
 		var mndFileds = new Array('Company','Last Name');
-		var fldLangVal = new Array('Empresa','Sobrenome');
+		var fldLangVal = new Array('Empresa','Nome completo');
 		for(i=0;i<mndFileds.length;i++) {
 		  var fieldObj=document.forms['WebToLeads7636445000000795048'][mndFileds[i]];
 		  if(fieldObj) {
@@ -295,6 +295,14 @@ html,body{
 		    }
 		}
 		if(!validateEmail7636445000000795048()){return false;}
+	var leadForm = document.forms['WebToLeads7636445000000795048'];
+	var emailValue = (leadForm['Email'].value || '').trim();
+	var phoneValue = (leadForm['Phone'].value || '').trim();
+	if(emailValue.length === 0 && phoneValue.length === 0) {
+		alert('Informe pelo menos um contato: e-mail ou telefone.');
+		leadForm['Email'].focus();
+		return false;
+	}
 		
 	var urlparams = new URLSearchParams( window.location.search);
 	if(urlparams.has('service') && (urlparams.get('service')==='smarturl')){
