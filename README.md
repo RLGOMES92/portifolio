@@ -1,58 +1,55 @@
-# 🚀 Portfólio — Rodrigo Gomes
+# Rodrigo Gomes — Full-Stack Developer
 
-Portfólio profissional de **Desenvolvedor Full Stack & Especialista em Agentes de IA**, com projetos voltados à criação de sites, sistemas web, automações e soluções digitais para negócios.
+**React · Next.js · TypeScript · Node.js · PostgreSQL · AI Integrations**
 
-🌐 **Site:** https://rlgomes92.github.io/portifolio/
+I build business applications, SaaS workflows, responsive commercial websites and intelligent automations. My work focuses on translating real business needs into useful, maintainable digital products.
 
-## 💼 O que desenvolvo
+🌐 **Portfolio:** https://rlgomes92.github.io/portifolio/  
+💼 **LinkedIn:** https://www.linkedin.com/in/rodrigomes2015  
+💻 **GitHub:** https://github.com/RLGOMES92
 
-- Sites profissionais e landing pages
-- Sistemas web e dashboards
-- Agentes de IA para atendimento e vendas
-- Automações de processos
-- MVPs e aplicações personalizadas
-- Integrações entre sistemas e APIs
+## Featured work
 
-## 🧩 Projetos em destaque
+| Project | Focus | Technologies |
+|---|---|---|
+| [VEYRION OS](https://veyrion-os.vercel.app/) | B2B equipment leasing management platform | Next.js, React, TypeScript, Supabase, PostgreSQL |
+| [WhatsApp AI Agent](https://github.com/RLGOMES92/agente) | Multi-company assistant, message workflows and human handoff | Node.js, Claude API, WhatsApp Cloud API, SQLite |
+| [AI Sales Agent](https://rlgomes92.github.io/mvp/) | Lead management and sales workflow demonstration | JavaScript, HTML, CSS |
+| [NB Diogo](https://rlgomes92.github.io/Nb/) | Customer, proposal and quotation management | React, Firebase |
+| [DaPaz Confeitaria](https://dapaz-confeitaria-xi.vercel.app/) | Digital storefront and customer experience | HTML, CSS, JavaScript |
 
-O portfólio reúne projetos de diferentes contextos de negócio, incluindo:
+See [PROJETOS.md](PROJETOS.md) for more case studies, implementation notes and links.
 
-- **Voe F5 Tour** — landing page comercial
-- **NB Diogo** — gestão de clientes e orçamentos
-- **FinControl** — dashboard financeiro PWA
-- **VanRotas** — gestão de transporte escolar
-- **Gami** — missões e recompensas
-- **D'Paz Confeitaria** — presença digital para negócio local
-- **Interclass Porto Seguro** — plataforma web para evento
+## What I build
 
-Consulte o [catálogo de projetos](PROJETOS.md) para detalhes, demonstrações e repositórios.
+- Full-stack web applications and SaaS products
+- Business dashboards and internal tools
+- CRM and operational workflows
+- REST API and webhook integrations
+- AI-assisted customer service and business automation
+- Responsive websites and landing pages
 
-## 🛠️ Stack
+## Core stack
 
-- HTML5 / CSS
-- JavaScript
-- React
-- Tailwind CSS
-- Firebase
-- Python
-- Node.js
-- APIs e integrações
-- OpenAI API
-- Git/GitHub
+**Frontend:** React, Next.js, TypeScript, JavaScript, HTML, CSS, Tailwind CSS  
+**Backend:** Node.js, REST APIs, webhooks  
+**Data:** PostgreSQL, Supabase, Firebase, SQLite  
+**AI:** Claude API, OpenAI API  
+**Delivery:** Git, GitHub, Vercel, Docker
 
-## ✨ Recursos do portfólio
+## Engineering principles
 
-- Interface responsiva
-- Navegação PT/EN/ES
-- Animações e elementos interativos
-- Acessibilidade e foco visível
-- Suporte a preferência por movimento reduzido
-- Seções de serviços, processo, projetos, stack e contato
+- Understand the business problem before choosing the implementation.
+- Keep code typed, readable and maintainable.
+- Validate inputs and protect application data.
+- Test critical user journeys.
+- Document setup, limitations and deployment.
+- Use AI tools to accelerate development while reviewing and validating the output.
 
-## 🎯 Objetivo
+## Languages
 
-Demonstrar, de forma prática, como tecnologia pode ajudar empresas a **apresentar melhor seus serviços, organizar processos, automatizar tarefas e criar novos canais digitais de atendimento e vendas**.
+Portuguese (native) · English (learning) · Spanish (learning)
 
 ---
 
-**Rodrigo Gomes — Desenvolvedor Full Stack & Especialista em Agentes de IA**
+**Open to Full-Stack Developer opportunities, international collaboration and freelance projects.**
